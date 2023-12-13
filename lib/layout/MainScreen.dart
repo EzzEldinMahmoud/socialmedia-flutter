@@ -1,0 +1,122 @@
+import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
+import 'package:chatapp/cubit/socialcubit/socialstates.dart';
+import 'package:chatapp/cubit/states.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../cubit/cubit.dart';
+
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (BuildContext context) { return  Socialappcubit(SocialappHOMEinitialstate())..getPosts()..getUserData(); },
+
+      child: BlocConsumer<Socialappcubit, socialappstate>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = Socialappcubit.get(context);
+          return Scaffold(
+            extendBody: true,
+            appBar: AppBar(
+              title:  Text(cubit.titles[cubit.currentindex]),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.search),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.notifications_outlined),
+                ),
+              ],
+            ),
+            body: Stack(
+              children:[Flex(
+                direction:  Axis.vertical,
+                children: [Expanded(
+
+                  child:
+                    cubit.screens[cubit.currentindex],
+
+                ),]
+              )
+              ,Align(
+                  alignment: Alignment.bottomCenter,
+
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 20.0),
+                  child: Container(
+
+
+                    foregroundDecoration: BoxDecoration(
+                     color: Colors.transparent,
+
+                    ),
+                    decoration:  BoxDecoration(
+
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(40.sp),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 5.0,
+                          spreadRadius: 1.0,
+                          offset: Offset(0.0, 5.0),
+                        ),
+                      ],
+                    ),
+                    child: BottomNavigationBar(
+                      type: BottomNavigationBarType.fixed,
+                      showSelectedLabels: false,
+                      showUnselectedLabels: false,
+                      fixedColor: Colors.black,
+                      backgroundColor: Colors.transparent,
+                      elevation: 0.0,
+                      currentIndex: cubit.currentindex,
+                      onTap: (index) {
+                        cubit.changeindex(index);
+                      },
+                      items:   [
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.home),
+                          label: 'Home',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.chat),
+                          label: 'Chats',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: IconButton(
+                              icon:Icon(Icons.add_box)
+                              , onPressed: () { Navigator.pushNamed(context, '/createpost'); },),
+                          label: 'Create Post',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.shopping_cart),
+                          label: 'Market Place',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.person),
+                          label: 'Profile',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+
+              ],
+            )
+
+
+
+           );
+        },
+      ));
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "195267222086",
+    "firebase_url": "https://closeworld-4b365-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "closeworld-4b365",
+    "storage_bucket": "closeworld-4b365.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195267222086:android:a5c765e02e554436af8847",
+        "android_client_info": {
+          "package_name": "com.example.chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAarU14p4JGQZVsfac_0ugXja1500G-VME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
