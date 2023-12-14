@@ -52,10 +52,19 @@ class _CHATSCREENState extends State<CHATSCREEN> {
           Navigator.pushNamed(context, '/messagescreen',arguments: {'user':user});
         },
         child: Container(
+
           padding: EdgeInsets.all(10.r),
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 0.5,
+                blurRadius: 5,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
             borderRadius: BorderRadius.circular(10.r),
-            color: Colors.grey[100],
+            color: Colors.white,
           ),
           child: Row(
             children: [

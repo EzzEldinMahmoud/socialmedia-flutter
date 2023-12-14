@@ -42,7 +42,7 @@ class _MessagesscreenState extends State<Messagesscreen> {
                 children: [
                   buildmymessageitem('hello'),
                   buildmessageitem('hello'),
-                 
+
                 ],
               ),
             ),
@@ -68,6 +68,33 @@ class _MessagesscreenState extends State<Messagesscreen> {
                       ),
                     ),
                     SizedBox(width: 15.0.w,),
+                    IconButton(
+
+                      onPressed: (){
+                       showDialog(context: context, builder: (context){
+                          return AlertDialog(
+                            title: const Text('Add Image'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.camera),
+                                  title: const Text('Camera'),
+                                  onTap: (){},
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.image),
+                                  title: const Text('Gallery'),
+                                  onTap: (){},
+                                ),
+                              ],
+                            ),
+                          );
+                       });
+                      },
+                      icon: const Icon(Icons.attach_file),
+                    ) ,
+                    SizedBox(width: 5.0.w,),
                     CircleAvatar(
                       backgroundColor: Colors.blue[300],
                       radius: 25.0.r,
