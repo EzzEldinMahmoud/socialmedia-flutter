@@ -1,5 +1,7 @@
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
+import 'package:chatapp/layout/Homescreen.dart';
+import 'package:chatapp/models/usermodel.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,8 @@ import 'dart:math' as math;
 import '../components/components.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import 'Homescreen.dart';
+
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
 
@@ -18,23 +22,39 @@ class Homescreen extends StatefulWidget {
 }
 var controller =
 TextEditingController();
-
+ List? comments ;
+ List? posts;
+ UserModel? user;
 class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Socialappcubit, socialappstate>(
-      listener: (BuildContext context, socialappstate state) {},
+      listener: (BuildContext context, socialappstate state) {
+    if (state is SocialappGETCOMMENTSSuccessstate){
+        comments = state.commentmodel ;
+
+    }
+    if(state is SocialappGETUSERsuccessstate){
+user = state.usermodel;
+    }
+    if(state is SocialappGETPOSTSSuccessstate){
+      posts = state.postmodel;
+    }
+
+      },
       builder: (BuildContext context, socialappstate state) {
         return ConditionalBuilder(
-          condition: Socialappcubit.get(context).posts.isNotEmpty &&
-              Socialappcubit.get(context).usermodel != null,
+          condition: Socialappcubit.get(context).posts.length > 0
+              ,
           builder: (BuildContext context) {
             var cubit = Socialappcubit.get(context);
+
             return SafeArea(
               child: Column(children: [
                 Expanded(
                     child: ListView.separated(
                   itemBuilder: (BuildContext context, int index) {
+
                     return defaultPostcard(
                         PROFILEimage:
                             Socialappcubit.get(context).posts[index].image,
@@ -52,23 +72,18 @@ class _HomescreenState extends State<Homescreen> {
                             : Socialappcubit.get(context)
                                 .posts[index]
                                 .postimage,
-                        like: Socialappcubit.get(context).likes[index],
-                        comment: Socialappcubit.get(context).comments.length,
-                        share: 100,
+                        like: '${Socialappcubit.get(context).likes[index]?? 0}',
                         imageslength: 1,
                         context: context,
                         index: index,
                         onpresscomment: () {
-                          Socialappcubit.get(context).getcomments(
-                              Socialappcubit.get(context).postsid[index]);
-                          var indexforpostid = Socialappcubit.get(context).postsid[index];
-                          var cubitUid = Socialappcubit.get(context).usermodel?.uId;
-                          var cubitImage = Socialappcubit.get(context).usermodel?.image;
-                          var cubitName = Socialappcubit.get(context).usermodel?.name;
+
+Socialappcubit.get(context).getcomments(postid: cubit.postsid[index]);
 
                           showModalBottomSheet(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(30.0),
                             ),
                             backgroundColor: Colors.white,
                             constraints: BoxConstraints(
@@ -113,53 +128,55 @@ class _HomescreenState extends State<Homescreen> {
                                             thickness: 1,
                                           ),
                                           Expanded(
-                                            child: SingleChildScrollView(
-                                              child: ListView.separated(
-                                                itemCount: Socialappcubit.get(
-                                                        context)
-                                                    .comments
-                                                    .length,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
+                                            child:  ConditionalBuilder(condition: comments != null , builder: (BuildContext context) {
+                                              return SingleChildScrollView(
+                                                child: ListView.separated(
+                                                  itemCount:comments
+                                                      !.length ,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                      int index) {
 
-                                                 return   ConditionalBuilder(condition: Socialappcubit.get(context).comments.length > 0, builder: (BuildContext context) {
-                                                   return  ListTile(
-                                                   leading: CircleAvatar(
-                                                     radius: 30.r,
-                                                     backgroundImage: NetworkImage('${Socialappcubit.get(context).comments[index].image}'),
-                                                   ),
-                                                   title: Text('${Socialappcubit.get(context).comments[index].name}'),
-                                                   subtitle: Text('${Socialappcubit.get(context).comments[index].text}'),
-                                                   trailing: IconButton(onPressed: (){}, icon: Icon(Ionicons.heart_outline , size: 30.sp,)),
-                                                 );
-                                                 }, fallback: (BuildContext context) {
+return ListTile(
+  leading: CircleAvatar(
+    radius: 30.r,
+    backgroundImage: NetworkImage('${comments?[index].image}'),
+  ),
+  title: Text('${comments?[index].name}'),
+  subtitle: Text('${comments?[index].text}'),
+  trailing: IconButton(onPressed: (){}, icon: Icon(Ionicons.heart_outline , size: 30.sp,)),
+);
 
-                                                    return Align(
-                                                      alignment: Alignment.center,
-                                                      child: Center(
-                                                        child: Text("no comments for now" , style: TextStyle(fontSize: 18.sp , fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
+                                                  },
+                                                  separatorBuilder:
+                                                      (BuildContext context,
+                                                      int index) {
+                                                    return SizedBox(
+                                                      height: 10.h,
                                                     );
-                                                 },
+                                                  },
 
-                                                 );
+                                                  shrinkWrap: true,
+                                                ),
 
-                                                },
-                                                separatorBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  return SizedBox(
-                                                    height: 10.h,
-                                                  );
-                                                },
+                                              );
+                                            }, fallback: (BuildContext context) {
 
-                                                shrinkWrap: true,
-                                              ),
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Center(
+                                                  child: Text("no comments for now" , style: TextStyle(fontSize: 18.sp , fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+
                                             ),
+
+
+
                                           ),
-                                          ConditionalBuilder(condition: cubitName != null , builder: (BuildContext context) {
+                                          ConditionalBuilder(condition: cubit.usermodel != null , builder: (BuildContext context) {
                                             return SizedBox(
                                               height: 60.h,
                                               width: 325.w,
@@ -192,14 +209,13 @@ class _HomescreenState extends State<Homescreen> {
                                                   IconButton(
                                                       onPressed: () {
                                                         Socialappcubit.get(context).CreateComment(
-                                                            name: '${cubit.usermodel?.name}' ,
+
                                                             datetime:
                                                             DateTime.now().toString(),
-                                                            uId: '${cubitUid}',
-                                                            image:'${cubitImage}',
+
                                                             text: controller.text,
 
-                                                            postid: indexforpostid);
+                                                            postid: cubit.postsid[index]);
                                                         controller.clear();
 
                                                       },

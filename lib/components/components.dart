@@ -99,9 +99,9 @@ Widget defaultPostcard({
   required String? time,
   required String? text,
   required String? postImage,
-  required int? like,
-  required int? comment,
-  required int? share,
+  required String? like,
+
+
   required int? imageslength,required BuildContext context,required int index,
   required Function()? onpresscomment,
 }) =>
@@ -193,15 +193,13 @@ itemCount: imageslength!,
 
 
                 },
-                icon: Socialappcubit.get(context).liked == true ?  Icon(
+                icon: Icon(
                   Ionicons.heart
                   ,
 color: Colors.red,
 size: 30.sp,
-):Icon(
-                  Ionicons.heart_outline,
-                  size: 30.sp,
-                )),
+)
+            ),
             SizedBox(
               width: 10.w,
             ),
@@ -245,12 +243,7 @@ size: 30.sp,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
             )),
-        Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'View all ' + comment!.toString() + ' comments',
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
-            )),
+
         Align(
             alignment: Alignment.centerLeft,
             child: Text(

@@ -3,8 +3,10 @@ import 'package:chatapp/layout/Homescreen.dart';
 import 'package:chatapp/layout/MainScreen.dart';
 import 'package:chatapp/layout/Register.dart';
 import 'package:chatapp/layout/WelcomeScreen.dart';
+import 'package:chatapp/layout/chatscreen.dart';
 import 'package:chatapp/layout/createPOST.dart';
 import 'package:chatapp/layout/login.dart';
+import 'package:chatapp/layout/messagescreen.dart';
 import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:chatapp/shared/remote/diohelper.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -52,6 +54,10 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/register': (BuildContext context) => RegisterScreen(),
   '/editprofile': (BuildContext context) => EditProfile(),
   '/createpost': (BuildContext context) => CREATEPOST(),
+  '/chat': (BuildContext context) => CHATSCREEN(),
+
+  '/messagescreen': (BuildContext context) => Messagesscreen(),
+
 
 };
 

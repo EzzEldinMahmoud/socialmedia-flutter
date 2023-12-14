@@ -1,3 +1,9 @@
+import 'package:chatapp/models/Commentmodel.dart';
+import 'package:chatapp/models/usermodel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../models/Postmodel.dart';
+
 abstract class socialappstate {}
 
 //home screen
@@ -26,11 +32,27 @@ class SocialappGETUSERinitialstate extends socialappstate {}
 class SocialappGETUSERloadingstate extends socialappstate {}
 
 class SocialappGETUSERsuccessstate extends socialappstate {
-
+UserModel? usermodel;
+  SocialappGETUSERsuccessstate( this.usermodel);
 }
 class SocialappGETUSERERRORstate extends socialappstate {
   String? error;
   SocialappGETUSERERRORstate( this.error);
+
+}
+//get ALL users
+class SocialappGETALLUSERinitialstate extends socialappstate {}
+
+class SocialappGETALLUSERloadingstate extends socialappstate {}
+
+class SocialappGETALLUSERsuccessstate extends socialappstate {
+  List<UserModel> users;
+  SocialappGETALLUSERsuccessstate( this.users);
+
+}
+class SocialappGETALLUSERERRORstate extends socialappstate {
+  String? error;
+  SocialappGETALLUSERERRORstate( this.error);
 
 }
 //UPDATE USER
@@ -86,11 +108,23 @@ class SocialappCreatePostERRORstate extends socialappstate {
 class SocialappGETCOMMENTSSLOADINGstate extends socialappstate {}
 
 class SocialappGETCOMMENTSSuccessstate extends socialappstate {
-
+ List<CommentModel> commentmodel;
+  SocialappGETCOMMENTSSuccessstate( this.commentmodel);
 }
 class SocialappGETCOMMENTSSERRORstate extends socialappstate {
   String? error;
   SocialappGETCOMMENTSSERRORstate( this.error);
+
+}
+//get likes
+class SocialappGETLIKESLOADINGstate extends socialappstate {}
+
+class SocialappGETLIKESSuccessstate extends socialappstate {
+
+}
+class SocialappLIKESERRORstate extends socialappstate {
+  String? error;
+  SocialappLIKESERRORstate( this.error);
 
 }
 //post comment
@@ -131,7 +165,10 @@ class SocialappGETPOSTSinitialstate extends socialappstate {}
 
 class SocialappGETPOSTSLOADINGstate extends socialappstate {}
 
-class SocialappGETPOSTSSuccessstate extends socialappstate {}
+class SocialappGETPOSTSSuccessstate extends socialappstate {
+ List<PostModel> postmodel;
+  SocialappGETPOSTSSuccessstate( this.postmodel);
+}
 class SocialappGETPOSTSERRORstate extends socialappstate {
   String? error;
   SocialappGETPOSTSERRORstate( this.error);

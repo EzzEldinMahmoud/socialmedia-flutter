@@ -25,13 +25,35 @@ class Socialappcubit extends Cubit<socialappstate> {
   static Socialappcubit get(context) => BlocProvider.of(context);
 
 UserModel? usermodel;
+
+//GET ALL USERS
+  List <UserModel> users = [];
+  void getusers(){
+    emit(SocialappGETALLUSERloadingstate());
+    FirebaseFirestore.instance.collection('users').get().then((value) {
+      for (var element in value.docs) {
+        if(element.data()['uId'] != StorageUtil.getString('uId')){
+          users.add(UserModel.fromJson(element.data()));
+        }
+      }
+      emit(SocialappGETALLUSERsuccessstate(users));
+    }).catchError((e){
+      emit(SocialappGETALLUSERERRORstate(e.toString()));
+    });
+
+  }
+
 //get user data
   void getUserData(){
 emit(SocialappGETUSERloadingstate());
 var uid = StorageUtil.getString('uid');
     FirebaseFirestore.instance.collection('users').doc(uid).get().then((value) {
       usermodel = UserModel.fromJson(value.data()!);
-      emit(SocialappGETUSERsuccessstate());
+      StorageUtil.putString('name', usermodel!.name!);
+      StorageUtil.putString('uId', usermodel!.uId!);
+      StorageUtil.putString('image', usermodel!.image!);
+
+      emit(SocialappGETUSERsuccessstate(usermodel));
     }).catchError((e){
       emit(SocialappGETUSERERRORstate(e.toString()));
     });
@@ -43,34 +65,44 @@ var uid = StorageUtil.getString('uid');
   bool liked = false;
   List <CommentModel> comments = [];
 
+//get comments
+  void getcomments({required String postid}){
+
+    emit(SocialappGETCOMMENTSSLOADINGstate());
+
+    FirebaseFirestore.instance.collection('posts').doc(postid).collection('comments').get().then((value) {
+      comments = [];
+      for (var element in value.docs) {
+        comments.add( CommentModel.fromJson(element.data()));
+
+      }
+
+      emit(SocialappGETCOMMENTSSuccessstate(comments));
+
+    }).catchError((e){
+      emit(SocialappGETCOMMENTSSERRORstate(e.toString()));
+    });
+  }
+  //get posts
   void getPosts(){
     emit(SocialappGETPOSTSLOADINGstate());
     var uid = StorageUtil.getString('uid');
     FirebaseFirestore.instance.collection('posts').get().then((value) {
+
      for (var element in value.docs) {
-comments.clear();
-likes.clear();
+element.reference.collection('likes').get().then((value) {
+  likes.add(value.docs.length);
+  postsid.add(element.id);
+  posts.add(PostModel.fromJson(element.data()));
 
 
-          FirebaseFirestore.instance.collection('posts').doc(element.id).collection('likes').get().then((value) {
-
-            FirebaseFirestore.instance.collection('posts').doc(element.id).collection('comments').get().then((value) {
-
-
-
-            postsid.add( element.id);
-          posts.add( PostModel.fromJson(element.data()));
-            likes.add(value.docs.length);
-            comments.add(CommentModel.fromJson(element.data()));
-            emit(SocialappGETPOSTSSuccessstate());
-
-            });
-          }).catchError((e){
-            emit(SocialappGETPOSTSERRORstate(e.toString()));
-          });
+}).catchError((e){
+  emit(SocialappGETPOSTSERRORstate(e.toString()));
+});
 
      }
-     emit(SocialappGETPOSTSSuccessstate());
+
+     emit(SocialappGETPOSTSSuccessstate(posts));
 
     }).catchError((e){
       emit(SocialappGETPOSTSERRORstate(e.toString()));
@@ -212,35 +244,23 @@ void uploadprofileImage({
     });
   }
 //get comments
-  void getcomments(String postid){
-    emit(SocialappGETCOMMENTSSLOADINGstate());
-    comments.clear();
-    FirebaseFirestore.instance.collection('posts').doc(postid).collection('comments').get().then((value) {
-      for (var element in value.docs) {
-        comments.add(CommentModel.fromJson(element.data()));
-      }
-      print(comments.length);
-      emit(SocialappGETCOMMENTSSuccessstate());
-    }).catchError((e){
-      emit(SocialappGETCOMMENTSSERRORstate(e.toString()));
-    });
-  }
+
 //create comment
   void CreateComment({
-    required String name,
     required String datetime,
-    required String uId,
-    required String image,
     required String text,
     required String postid,
 
   }){
     emit(SocialappCREATECOMMENTloadingstate());
-    CommentModel commentmodel = CommentModel(name: usermodel?.name, datetime: datetime, uId: usermodel?.uId, image: usermodel?.image, text: text);
-    FirebaseFirestore.instance.collection('posts').doc(postid).collection('comments').add(
-        commentmodel.toMap()).then((value) {
+String name =  StorageUtil.getString('name');
+String uId =  StorageUtil.getString('uId');
+String image =  StorageUtil.getString('image');
 
-      getcomments(postid);
+    CommentModel commencement = CommentModel(name: name, datetime: datetime, uId: uId, image: image, text: text);
+    FirebaseFirestore.instance.collection('posts').doc(postid).collection('comments').doc(usermodel?.uId).set(
+        commencement.toMap()).then((value) {
+
       emit(SocialappCREATECOMMENTsuccessstate());
     }).catchError((e){
       emit(SocialappCREATECOMMENTERRORstate(e.toString()));

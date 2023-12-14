@@ -45,10 +45,10 @@ var biocontroller = TextEditingController();
                 TextButton(
                     onPressed: () {
                       Socialappcubit.get(context).updateuserdata(
-                          name:  namecontroller.text !=null ?  namecontroller.text : cubit?.name,
-                          phone:  phonecontroller.text != null ?  phonecontroller.text : cubit?.phone,
-                          bio:  biocontroller.text != null ? biocontroller.text : cubit?.bio,
-                          image: Socialappcubit.get(context).profileimageurl != null ?  Socialappcubit.get(context).profileimageurl : cubit?.image);
+                          name:  namecontroller.text.isNotEmpty  ?  namecontroller.text : cubit?.name,
+                          phone:  phonecontroller.text.isNotEmpty ?  phonecontroller.text : cubit?.phone,
+                          bio:  biocontroller.text.isNotEmpty ? biocontroller.text : cubit?.bio,
+                          image: Socialappcubit.get(context).profileimageurl.isNotEmpty  ?  Socialappcubit.get(context).profileimageurl : cubit?.image);
                     },
                     child: Text(
                       'Update',

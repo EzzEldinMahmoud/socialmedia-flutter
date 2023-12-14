@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) { return  Socialappcubit(SocialappHOMEinitialstate())..getPosts()..getUserData(); },
+      create: (BuildContext context) { return  Socialappcubit(SocialappHOMEinitialstate())..getPosts()..getUserData()..getusers(); },
 
       child: BlocConsumer<Socialappcubit, socialappstate>(
         listener: (context, state) {},
@@ -52,7 +52,7 @@ class MainScreen extends StatelessWidget {
                   child: Container(
 
 
-                    foregroundDecoration: BoxDecoration(
+                    foregroundDecoration: const BoxDecoration(
                      color: Colors.transparent,
 
                     ),
@@ -65,7 +65,7 @@ class MainScreen extends StatelessWidget {
                           color: Colors.black.withOpacity(0.1),
                           blurRadius: 5.0,
                           spreadRadius: 1.0,
-                          offset: Offset(0.0, 5.0),
+                          offset: const Offset(0.0, 5.0),
                         ),
                       ],
                     ),
@@ -73,6 +73,7 @@ class MainScreen extends StatelessWidget {
                       type: BottomNavigationBarType.fixed,
                       showSelectedLabels: false,
                       showUnselectedLabels: false,
+
                       fixedColor: Colors.black,
                       backgroundColor: Colors.transparent,
                       elevation: 0.0,
@@ -81,25 +82,25 @@ class MainScreen extends StatelessWidget {
                         cubit.changeindex(index);
                       },
                       items:   [
-                        BottomNavigationBarItem(
+                        const BottomNavigationBarItem(
                           icon: Icon(Icons.home),
                           label: 'Home',
                         ),
-                        BottomNavigationBarItem(
+                        const BottomNavigationBarItem(
                           icon: Icon(Icons.chat),
                           label: 'Chats',
                         ),
                         BottomNavigationBarItem(
                           icon: IconButton(
-                              icon:Icon(Icons.add_box)
+                              icon:const Icon(Icons.add_box)
                               , onPressed: () { Navigator.pushNamed(context, '/createpost'); },),
                           label: 'Create Post',
                         ),
-                        BottomNavigationBarItem(
+                        const BottomNavigationBarItem(
                           icon: Icon(Icons.shopping_cart),
                           label: 'Market Place',
                         ),
-                        BottomNavigationBarItem(
+                        const BottomNavigationBarItem(
                           icon: Icon(Icons.person),
                           label: 'Profile',
                         ),
