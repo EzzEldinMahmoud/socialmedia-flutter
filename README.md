@@ -1,4 +1,7 @@
-# chatapp
+# SOCIAL MEDIA APP built using flutter
+# clone the repo 
+## pub get
+### flutter run android
 
 A new Flutter project.
 
