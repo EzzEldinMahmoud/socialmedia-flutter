@@ -1,4 +1,5 @@
 import 'package:chatapp/models/Commentmodel.dart';
+import 'package:chatapp/models/messagemodel.dart';
 import 'package:chatapp/models/usermodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -174,4 +175,34 @@ class SocialappGETPOSTSERRORstate extends socialappstate {
   SocialappGETPOSTSERRORstate( this.error);
 
 }
+//REMOVE POST IMAGE
 class SocialappRemovePostImagestate extends socialappstate {}
+
+
+//get messages
+
+class SocialappGETMessagesSLOADINGstate extends socialappstate {}
+
+class SocialappGETMessagesSSuccessstate extends socialappstate {
+  List<MessageModel> messageModel;
+  SocialappGETMessagesSSuccessstate( this.messageModel);
+}
+class SocialappGETMessagesSERRORstate extends socialappstate {
+  String? error;
+  SocialappGETMessagesSERRORstate( this.error);
+
+}
+
+//send messages
+
+class SocialappSENDMessagesSLOADINGstate extends socialappstate {}
+
+class SocialappSENDMessagesSSuccessstate extends socialappstate {
+  List<MessageModel> messageModel;
+  SocialappSENDMessagesSSuccessstate( this.messageModel);
+}
+class SocialappSENDMessagesSERRORstate extends socialappstate {
+  String? error;
+  SocialappSENDMessagesSERRORstate( this.error);
+
+}

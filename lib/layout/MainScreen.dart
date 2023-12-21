@@ -1,6 +1,7 @@
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
 import 'package:chatapp/cubit/states.dart';
+import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,8 +30,11 @@ class MainScreen extends StatelessWidget {
                   icon: const Icon(Icons.search),
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.notifications_outlined),
+                  onPressed: () {
+                    StorageUtil.clrString('uid');
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  icon: const Icon(Icons.logout,color: Colors.red,),
                 ),
               ],
             ),

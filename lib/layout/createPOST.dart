@@ -177,7 +177,7 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                                       fontSize: 18.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    textAlign: TextAlign.start,
+                                    textAlign: TextAlign.start,overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
                                     'What are you feeling?',

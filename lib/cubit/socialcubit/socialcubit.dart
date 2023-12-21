@@ -94,7 +94,7 @@ element.reference.collection('likes').get().then((value) {
   likes.add(value.docs.length);
   postsid.add(element.id);
   posts.add(PostModel.fromJson(element.data()));
-
+  emit(SocialappGETPOSTSSuccessstate(posts));
 
 }).catchError((e){
   emit(SocialappGETPOSTSERRORstate(e.toString()));
@@ -102,7 +102,7 @@ element.reference.collection('likes').get().then((value) {
 
      }
 
-     emit(SocialappGETPOSTSSuccessstate(posts));
+
 
     }).catchError((e){
       emit(SocialappGETPOSTSERRORstate(e.toString()));

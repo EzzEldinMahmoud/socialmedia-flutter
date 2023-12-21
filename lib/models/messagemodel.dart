@@ -1,4 +1,4 @@
-class CommentModel{
+class MessageModel{
   String? senderId;
   String? recieverId;
   String? image;
@@ -7,7 +7,7 @@ class CommentModel{
 
 
 
-  CommentModel({
+  MessageModel({
     required this.recieverId,
     required this.datetime,
     required this.senderId,
@@ -16,7 +16,7 @@ class CommentModel{
 
   });
 
-  CommentModel.fromJson(Map<String, dynamic> json) {
+  MessageModel.fromJson(Map<String, dynamic> json) {
     datetime = json['datetime']?? '';
     image = json['image']?? '';
     text = json['text']?? '';
