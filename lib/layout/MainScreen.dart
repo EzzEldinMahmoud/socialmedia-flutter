@@ -1,13 +1,9 @@
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
-import 'package:chatapp/cubit/states.dart';
 import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../cubit/cubit.dart';
-
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
