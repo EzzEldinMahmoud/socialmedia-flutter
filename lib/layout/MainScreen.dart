@@ -25,13 +25,13 @@ class MainScreen extends StatelessWidget {
                   onPressed: () {},
                   icon: const Icon(Icons.search),
                 ),
-                IconButton(
+                cubit.titles[cubit.currentindex] == "Settings" ?  IconButton(
                   onPressed: () {
                     StorageUtil.clrString('uid');
                     Navigator.pushNamed(context, '/login');
                   },
                   icon: const Icon(Icons.logout,color: Colors.red,),
-                ),
+                ): Container(),
               ],
             ),
             body: Stack(
