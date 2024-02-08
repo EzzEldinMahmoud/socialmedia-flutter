@@ -57,7 +57,7 @@ FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pas
   print(value.user!.uid);
 
 }).catchError((e){
-  emit(appREGISTERerrorstate(e.toString()));
+  emit(appREGISTERerrorstate('SIGN UP FAILED TRY AAIN LATER'));
 });
 
   }
@@ -79,7 +79,7 @@ FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pas
       ).then((value) {
         emit(appCREATEUSERsuccessstate());
       }).catchError((e){
-        emit(appCREATEUSERerrorstate(e.toString()));
+        emit(appCREATEUSERerrorstate('E-mail is used'));
       });
 
 

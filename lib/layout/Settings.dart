@@ -13,15 +13,17 @@ class Settingscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) { return  Socialappcubit(SocialappGETUSERinitialstate())..getUserData(); },
+      create: (BuildContext context) { return  Socialappcubit(SocialappGETUSERinitialstate())..getUserData()..Getuserposts(); },
       child: BlocConsumer<Socialappcubit, socialappstate>( listener: (BuildContext context, Object state) {
 
       },
         builder: (BuildContext context, state) {
           var cubit = Socialappcubit.get(context).usermodel;
-        return   Scaffold(
+          var postcubit = Socialappcubit.get(context);
+
+          return   Scaffold(
           body:
-          ConditionalBuilder(condition: state is! SocialappGETUSERloadingstate, builder: (BuildContext context) {
+          ConditionalBuilder(condition: state is SocialappGETUSERsuccessstate || state is SocialappUSERPOSTSsuccessstate , builder: (BuildContext context) {
             return  Padding(
               padding: const EdgeInsets.all(15.0).w,
               child: Column(
@@ -44,7 +46,7 @@ class Settingscreen extends StatelessWidget {
                     height: 20.h,
                   ),
                   Text(
-                    '${cubit?.name}',
+                    '${cubit.name}',
                     style: TextStyle(
                       fontSize: 25.sp,
                       fontWeight: FontWeight.bold,
@@ -54,7 +56,7 @@ class Settingscreen extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    '${cubit?.bio}',
+                    '${cubit.bio}',
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w200,
@@ -63,25 +65,15 @@ class Settingscreen extends StatelessWidget {
                   SizedBox(
                     height: 10.h,
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children:[
-                        defaultTitleDesc(title: '100', desc: 'Posts', context: context),
-                        defaultTitleDesc(title: '230', desc: 'Photos', context: context)
-                        ,defaultTitleDesc(title: '10k', desc: 'Followers', context: context)
-                        ,defaultTitleDesc(title: '64', desc: "Following", context: context)
 
 
-                      ]
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
                   Row(
                     children: [
                       Expanded(
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/createpost');
+                          },
                           child: Text(
                             'Add Photos',
                             style: TextStyle(
@@ -107,7 +99,36 @@ class Settingscreen extends StatelessWidget {
                       ),
                     ],
 
-                  )
+                  ),
+                  ConditionalBuilder(condition: postcubit.userposts.length != 0, builder: (context){
+                    return  Expanded(child:
+                    GridView.count(crossAxisCount: 4,scrollDirection: Axis.vertical,children: List.generate(postcubit.userposts.length , (index)  {
+
+                      return GestureDetector(
+                        onTap: (){
+                          print(postcubit.userposts[index].uId);
+                          print(cubit.uId);
+                        },
+                        child:  cubit.uId == postcubit.userposts[index].uId ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          width: MediaQuery.of(context).size.height * 0.25,
+                          child: Image.network('${ postcubit.userposts[index].image}',fit: BoxFit.cover,),
+                        ):Center(
+                          child: Text("yet to upload"),
+                        ),
+                      );
+
+
+                    }),)
+                    );
+                  }, fallback:(context){
+                    return Center(
+                      child: Text("you have not upload anything yet !"),
+                    );
+                  })
+
+
+
                 ],
               ),
             );

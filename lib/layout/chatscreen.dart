@@ -21,20 +21,28 @@ class _CHATSCREENState extends State<CHATSCREEN> {
       child: BlocConsumer<Socialappcubit,socialappstate>(listener: (context, state){
       if (state is SocialappGETALLUSERsuccessstate) {
         users = state.users;
-      print(users);
+
       }
       }, builder: (context, state){
         return ConditionalBuilder(condition: users != null , builder: (BuildContext context){
-          return ListView.separated(
+          return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => buildchatitem(users?[index], context),
-            separatorBuilder: (context, index) =>  Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-              child: const Divider(
-                thickness: 0,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 1,
+              width: MediaQuery.of(context).size.width * 1,
+
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) => buildchatitem(users?[index], context),
+                separatorBuilder: (context, index) =>  Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                  child: const Divider(
+                    thickness: 0,
+                  ),
+                ),
+                itemCount: users!.length,
               ),
             ),
-            itemCount: users!.length,
           );
         }, fallback: (context)=>const Center(child: CircularProgressIndicator(color: Colors.black,),),);
 
@@ -46,7 +54,7 @@ class _CHATSCREENState extends State<CHATSCREEN> {
 
   buildchatitem(user, BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(20.r),
+      padding:  EdgeInsets.all(5.r),
       child: InkWell(
         onTap: (){
           Navigator.pushNamed(context, '/messagescreen',arguments: {'user':user});
@@ -56,12 +64,7 @@ class _CHATSCREENState extends State<CHATSCREEN> {
           padding: EdgeInsets.all(10.r),
           decoration: BoxDecoration(
             boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 0.5,
-                blurRadius: 5,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
+
             ],
             borderRadius: BorderRadius.circular(10.r),
             color: Colors.white,

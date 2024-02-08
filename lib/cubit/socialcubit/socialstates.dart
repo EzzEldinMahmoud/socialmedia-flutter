@@ -206,3 +206,18 @@ class SocialappSENDMessagesSERRORstate extends socialappstate {
   SocialappSENDMessagesSERRORstate( this.error);
 
 }
+// get user posts 
+
+class SocialappUSERPOSTSinitialstate extends socialappstate {}
+
+class SocialappUSERPOSTSloadingstate extends socialappstate {}
+
+class SocialappUSERPOSTSsuccessstate extends socialappstate {
+  SocialappUSERPOSTSsuccessstate(List userposts);
+
+
+}
+class SocialappUSERPOSTSerrorstate extends socialappstate {
+  SocialappUSERPOSTSerrorstate(String string);
+
+}
