@@ -2,6 +2,7 @@ import 'package:chatapp/layout/EditProfile.dart';
 import 'package:chatapp/layout/Homescreen.dart';
 import 'package:chatapp/layout/MainScreen.dart';
 import 'package:chatapp/layout/Register.dart';
+import 'package:chatapp/layout/SearchPage.dart';
 import 'package:chatapp/layout/WelcomeScreen.dart';
 import 'package:chatapp/layout/chatscreen.dart';
 import 'package:chatapp/layout/createPOST.dart';
@@ -55,6 +56,8 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/editprofile': (BuildContext context) => EditProfile(),
   '/createpost': (BuildContext context) => CREATEPOST(),
   '/chat': (BuildContext context) => CHATSCREEN(),
+  '/search': (BuildContext context) => SearchPage(),
+
 
   '/messagescreen': (BuildContext context) => Messagesscreen(),
 
@@ -81,7 +84,7 @@ class myapp extends StatelessWidget {
                 builder: (ctx, child) {
 
                   return MaterialApp(
-                    themeMode: ThemeMode.light,
+                    themeMode: ThemeMode.dark,
                     theme: lighttheme,
                     initialRoute: '/',
                     darkTheme: darktheme,

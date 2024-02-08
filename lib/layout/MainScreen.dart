@@ -22,7 +22,9 @@ class MainScreen extends StatelessWidget {
               title:  Text(cubit.titles[cubit.currentindex]),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/search');
+                  },
                   icon: const Icon(Icons.search),
                 ),
                 cubit.titles[cubit.currentindex] == "Settings" ?  IconButton(
@@ -48,7 +50,7 @@ class MainScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
 
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 20.0),
+                  padding:  EdgeInsets.symmetric(vertical: 20.h,horizontal: 20.w),
                   child: Container(
 
 
@@ -58,7 +60,7 @@ class MainScreen extends StatelessWidget {
                     ),
                     decoration:  BoxDecoration(
 
-                      color: Colors.white,
+                      color: Colors.black,
                       borderRadius: BorderRadius.circular(40.sp),
                       boxShadow: [
                         BoxShadow(
@@ -71,10 +73,12 @@ class MainScreen extends StatelessWidget {
                     ),
                     child: BottomNavigationBar(
                       type: BottomNavigationBarType.fixed,
-                      showSelectedLabels: false,
+                      showSelectedLabels: true,
                       showUnselectedLabels: false,
 
-                      fixedColor: Colors.black,
+
+                      fixedColor: Colors.white,
+                      unselectedItemColor: Colors.white,
                       backgroundColor: Colors.transparent,
                       elevation: 0.0,
                       currentIndex: cubit.currentindex,

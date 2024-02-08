@@ -67,7 +67,7 @@ class _CHATSCREENState extends State<CHATSCREEN> {
 
             ],
             borderRadius: BorderRadius.circular(10.r),
-            color: Colors.white,
+            color: Colors.black,
           ),
           child: Row(
             children: [
@@ -84,7 +84,7 @@ class _CHATSCREENState extends State<CHATSCREEN> {
                   Text(
                     '${user.name.toUpperCase()}',overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 16.0.sp,fontWeight: FontWeight.bold,
+                      fontSize: 16.0.sp,fontWeight: FontWeight.bold,color: Colors.white
                     ),
                   ),
                   Text(

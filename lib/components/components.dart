@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:chatapp/components/apptheme.dart';
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,17 @@ Widget defaultTextFormField({
       controller: controller,
       keyboardType: type,
       obscureText: obscure ?? false,
+
       decoration: InputDecoration(
+focusedBorder: OutlineInputBorder(
+  borderSide: BorderSide(color: Colors.white)
+),
+        focusColor: Colors.white,
+        labelStyle: TextStyle(
+          color: Colors.white
+        ),
+
+        fillColor: Colors.black,
         labelText: label ?? '',
         hintText: hint ?? '',
         prefixIcon: Icon(icon),
@@ -104,8 +115,10 @@ Widget defaultPostcard({
 
   required int? imageslength,required BuildContext context,required int index,
   required Function()? onpresscomment,
-}) =>
-    Padding(
+})
+    {
+      final ThemeData theme = Theme.of(context);
+   return  Padding(
       padding: const EdgeInsets.all(20.0).w,
       child: Column(children: [
         Row(
@@ -125,14 +138,15 @@ Widget defaultPostcard({
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name!.toUpperCase(),
+                  name!,
                   style:
-                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  TextStyle(
+                      fontSize: darktheme.textTheme.bodyMedium!.fontSize, fontWeight: FontWeight.bold, color:darktheme.textTheme.bodyMedium!.color,),
                 ),
                 Text(
                   '',
                   style:
-                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w200),
+                  TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w200),
                 ),
               ],
             ),
@@ -149,33 +163,34 @@ Widget defaultPostcard({
           height: 10.h,
         ),
         SizedBox(
-          height: 220.h,
-          width: 325.0.w,
-          child: FractionallySizedBox(
+            height: 220.h,
+            width: 325.0.w,
+            child: FractionallySizedBox(
               widthFactor: 1,
               heightFactor: 1,
-              child: postImage!.isNotEmpty ?  defaultImageContainer(
-                  image: postImage ,
+              child: postImage!.isNotEmpty ? defaultImageContainer(
+                  image: postImage,
                   width: double.infinity,
                   height: double.infinity,
                   radius: 10.0.r) : Center(
-child: Container(
-  padding: EdgeInsets.all(10.0.r),
-decoration: BoxDecoration(
-  color: Colors.grey[100],
-borderRadius: BorderRadius.circular(10.0.r)
-),
-width: double.infinity,
-height: double.infinity,
-child: Center(
-  child: Text(
-  text!
-  ,
-  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
-  ),
-),
-),
-),)
+                child: Container(
+                  padding: EdgeInsets.all(10.0.r),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(10.0.r)
+                  ),
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Center(
+                    child: Text(
+                      text!
+                      ,
+                      style: TextStyle(
+                          fontSize: darktheme.textTheme.bodySmall!.fontSize, fontWeight: FontWeight.bold, color:lighttheme.textTheme.bodyLarge!.color),
+                    ),
+                  ),
+                ),
+              ),)
           /*
   * ListView.separated(
 scrollDirection: Axis.horizontal,
@@ -189,16 +204,16 @@ itemCount: imageslength!,
           children: [
             IconButton(
                 onPressed: () {
-                  Socialappcubit.get(context).likepost(Socialappcubit.get(context).postsid[index]);
-
-
+                  Socialappcubit.get(context).likepost(Socialappcubit
+                      .get(context)
+                      .postsid[index]);
                 },
                 icon: Icon(
                   Ionicons.heart
                   ,
-color: Colors.red,
-size: 30.sp,
-)
+                  color: Colors.red,
+                  size: 30.sp,
+                )
             ),
             SizedBox(
               width: 10.w,
@@ -218,6 +233,7 @@ size: 30.sp,
                 icon: Icon(
                   Ionicons.arrow_redo_outline,
                   size: 30.sp,
+
                 )),
             Spacer(),
             IconButton(
@@ -250,8 +266,8 @@ size: 30.sp,
               time!,
               style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
             )),
-      ]),
-    );
+      ]));
+    }
 
 Widget defaultappbar({
   required BuildContext? context,

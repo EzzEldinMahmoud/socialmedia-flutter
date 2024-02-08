@@ -189,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             TextButton(
                               onPressed: () {
-
+                                Navigator.pushNamed(context, '/login');
                               },
                               child: Text(
                                 'LOGIN',

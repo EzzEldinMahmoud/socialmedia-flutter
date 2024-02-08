@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData lighttheme = ThemeData(
   primarySwatch: Colors.blue,
@@ -52,9 +53,19 @@ ThemeData darktheme = ThemeData(
     elevation: 20.0,
     backgroundColor: Colors.black,
   ),
-  textTheme: const TextTheme(
+  textTheme:  TextTheme(
     bodyLarge: TextStyle(
-      fontSize: 18.0,
+      fontSize: 25.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 18.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    bodySmall: TextStyle(
+      fontSize: 14.sp,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
