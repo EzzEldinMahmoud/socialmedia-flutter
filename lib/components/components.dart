@@ -10,7 +10,56 @@ import 'dart:math' as math;
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:ionicons/ionicons.dart';
+Widget  buildchatitem(user, BuildContext context) {
+  return Padding(
+    padding:  EdgeInsets.all(5.r),
+    child: InkWell(
+      onTap: (){
+        Navigator.pushNamed(context, '/messagescreen',arguments: {'user':user});
+      },
+      child: Container(
 
+        padding: EdgeInsets.all(10.r),
+        decoration: BoxDecoration(
+          boxShadow: [
+
+          ],
+          borderRadius: BorderRadius.circular(10.r),
+          color: Colors.black,
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 25.0.r,
+              backgroundImage: NetworkImage('${user.image}'),
+            ),
+            SizedBox(
+              width: 20.0.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${user.name.toUpperCase()}',overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 16.0.sp,fontWeight: FontWeight.bold,color: Colors.white
+                  ),
+                ),
+                Text(
+                  'Last message',
+                  style: TextStyle(
+                    fontSize: 16.0.sp,
+                  ),overflow: TextOverflow.ellipsis,
+
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 Widget defaultTextFormField({
   required TextEditingController controller,
   String? label,

@@ -22,7 +22,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children:[
-                  SizedBox(child: Image.asset('assets/images/welcome.jpg',fit: BoxFit.contain,),height: 300.h,width: double.infinity,),
+                  SizedBox(child: Image.asset('assets/images/welcome.png',fit: BoxFit.contain,),height: 300.h,width: double.infinity,),
                   SizedBox(
                     height: 50.h,
                   ),

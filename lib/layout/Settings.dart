@@ -79,7 +79,7 @@ class Settingscreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -94,7 +94,7 @@ class Settingscreen extends StatelessWidget {
                         child: Icon(
                           Icons.edit,
                           size: 20.sp,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -113,7 +113,7 @@ class Settingscreen extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.15,
                           width: MediaQuery.of(context).size.height * 0.25,
                           child: Image.network('${ postcubit.userposts[index].image}',fit: BoxFit.cover,),
-                        ):Center(
+                        ):const Center(
                           child: Text("yet to upload"),
                         ),
                       );
@@ -122,8 +122,19 @@ class Settingscreen extends StatelessWidget {
                     }),)
                     );
                   }, fallback:(context){
-                    return Center(
-                      child: Text("you have not upload anything yet !"),
+                    return Padding(
+                      padding:  EdgeInsets.all(14.0.r),
+                      child:  Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                             Text("you haven't uploaded anything yet !",style: TextStyle(
+                               color: Colors.white,fontSize: 14.sp
+                             )),
+
+                        ],
+                      ),
                     );
                   })
 
@@ -134,7 +145,7 @@ class Settingscreen extends StatelessWidget {
             );
 
           }, fallback: (BuildContext context) {
-            return Center(child: CircularProgressIndicator(),);
+            return const Center(child: CircularProgressIndicator(),);
           },
             ),
         );
