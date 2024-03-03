@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../components/apptheme.dart';
+
 class Settingscreen extends StatelessWidget {
   const Settingscreen({super.key});
 
@@ -106,15 +108,37 @@ class Settingscreen extends StatelessWidget {
                     return  Expanded(child:
                     GridView.count(crossAxisCount: 4,scrollDirection: Axis.vertical,children: List.generate(postcubit.userposts.length , (index)  {
 
-                      return GestureDetector(
-                        onTap: (){
-                        },
-                        child:  cubit.uId == postcubit.userposts[index].uId ? SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.15,
-                          width: MediaQuery.of(context).size.height * 0.25,
-                          child: Image.network('${ postcubit.userposts[index].image}',fit: BoxFit.cover,),
-                        ):const Center(
-                          child: Text("yet to upload"),
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: (){
+                          },
+                          child:  cubit.uId == postcubit.userposts[index].uId ? SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.15,
+                            width: MediaQuery.of(context).size.height * 0.25,
+                            child:postcubit.userposts[index].postimage.length > 0 ? Image.network('${ postcubit.userposts[index].postimage}',fit: BoxFit.cover,):
+                            Center(
+                              child: Container(
+                                padding: EdgeInsets.all(10.0.r),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[100],
+                                    borderRadius: BorderRadius.circular(10.0.r)
+                                ),
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Center(
+                                  child: Text(
+                                    postcubit.userposts[index].text
+                                    ,
+                                    style: TextStyle(
+                                        fontSize: darktheme.textTheme.bodySmall!.fontSize, fontWeight: FontWeight.bold, color:lighttheme.textTheme.bodyLarge!.color),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ):const Center(
+                            child: Text("yet to upload"),
+                          ),
                         ),
                       );
 

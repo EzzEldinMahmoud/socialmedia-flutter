@@ -7,6 +7,8 @@ class apploadingstate extends appstate {}
 class appsuccessstate extends appstate {
 
 }
+//...........................................................................................
+//login
 class appLOGINinitialstate extends appstate {}
 
 class appLOGINloadingstate extends appstate {}
@@ -21,6 +23,8 @@ class appLOGINerrorstate extends appstate {
   appLOGINerrorstate( onerror);
 
 }
+//...........................................................................................
+//register
 class appREGISTERinitialstate extends appstate {}
 
 class appREGISTERloadingstate extends appstate {}
@@ -35,6 +39,8 @@ class appREGISTERerrorstate extends appstate {
 
 
 }
+//...........................................................................................
+//create user
 class appCREATEUSERinitialstate extends appstate {}
 
 class appCREATEUSERloadingstate extends appstate {}
@@ -49,6 +55,8 @@ class appCREATEUSERerrorstate extends appstate {
 
 
 }
+//...........................................................................................
+//Home screen
 class appHOMEinitialstate extends appstate {}
 
 class appHOMEloadingstate extends appstate {}
@@ -56,6 +64,8 @@ class appHOMEloadingstate extends appstate {}
 class appHOMEsuccessstate extends appstate {
 
 }
+//...........................................................................................
+//settings page
 class appSETTINGinitialstate extends appstate {}
 
 class appSETTINGloadingstate extends appstate {}
@@ -63,7 +73,8 @@ class appSETTINGloadingstate extends appstate {}
 class appSETTINGsuccessstate extends appstate {
 
 }
-
+//...........................................................................................
+//bottom nav state
 class appbottomnavstate extends appstate {
 
 }

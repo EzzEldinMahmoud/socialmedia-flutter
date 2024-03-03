@@ -22,7 +22,7 @@ class Socialappcubit extends Cubit<socialappstate> {
   static Socialappcubit get(context) => BlocProvider.of(context);
 
   UserModel? usermodel;
-
+//...........................................................................................
 //GET ALL USERS
   List<UserModel> users = [];
   void getusers() {
@@ -38,7 +38,7 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappGETALLUSERERRORstate(e.toString()));
     });
   }
-
+//...........................................................................................
 //get user data
   void getUserData() {
     emit(SocialappGETUSERloadingstate());
@@ -54,14 +54,14 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappGETUSERERRORstate(e.toString()));
     });
   }
-
+//...........................................................................................
   //get all posts
   List<PostModel> posts = [];
   List<String> postsid = [];
   List<int> likes = [];
   bool liked = false;
   List<CommentModel> comments = [];
-
+//...........................................................................................
 //get comments
   void getcomments({required String postid}) {
     emit(SocialappGETCOMMENTSSLOADINGstate());
@@ -82,7 +82,7 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappGETCOMMENTSSERRORstate(e.toString()));
     });
   }
-
+//...........................................................................................
   //get posts
   void getPosts() {
     emit(SocialappGETPOSTSLOADINGstate());
@@ -101,12 +101,13 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappGETPOSTSERRORstate(e.toString()));
     });
   }
-
+//...........................................................................................
+//remove post image
   void removepostimage() {
     postimagehere = null;
     emit(SocialappRemovePostImagestate());
   }
-
+//...........................................................................................
   //get profileimage
   File? profileImage;
   ImagePicker picker = ImagePicker();
@@ -120,7 +121,7 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappGETPROFILEIMAGEERRORstate('no image selected'));
     }
   }
-
+//...........................................................................................
   //upload profile image
   String profileimageurl = '';
   void uploadprofileImage({
@@ -151,7 +152,7 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappUPLOADPROFILEIMAGEERRORstate(e.toString()));
     });
   }
-
+//...........................................................................................
 //create post
   File? postimagehere;
   ImagePicker postpicker = ImagePicker();
@@ -165,7 +166,8 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappGETPostIIMAGEERRORstate('no image selected'));
     }
   }
-//upload postimage
+  //...........................................................................................
+//upload post image
   void uploadPostImage({
     required String datetime,
     required String text,
@@ -189,7 +191,8 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappCreatePostImageERRORstate(e.toString()));
     });
   }
-
+  //...........................................................................................
+//create post
   void createpost({
     required String datetime,
     required String? postimage,
@@ -212,7 +215,7 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappCreatePostERRORstate(e.toString()));
     });
   }
-
+//...........................................................................................
   // update user data
   void updateuserdata({
     required String? name,
@@ -239,7 +242,7 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappUPDATEUSERERRORstate(e.toString()));
     });
   }
-
+//...........................................................................................
   // like post
   void likepost(String postid) {
     FirebaseFirestore.instance
@@ -256,7 +259,7 @@ class Socialappcubit extends Cubit<socialappstate> {
     });
   }
 //get comments
-
+//...........................................................................................
 //create comment
   void createcomment({
     required String datetime,
@@ -283,6 +286,8 @@ class Socialappcubit extends Cubit<socialappstate> {
     });
   }
   List userposts = [];
+  //...........................................................................................
+
 //get user posts
   void getuserposts(){
     emit(SocialappUSERPOSTSinitialstate());
@@ -301,11 +306,14 @@ class Socialappcubit extends Cubit<socialappstate> {
 
 
   }
+  //...........................................................................................
+
   //to do:
   // chat system function
   void getmessages(){}
   void sendmessage(){}
 
+//...........................................................................................
 //bottom nav bar
   int currentindex = 0;
   List<BottomNavigationBarItem> bottomItems = [

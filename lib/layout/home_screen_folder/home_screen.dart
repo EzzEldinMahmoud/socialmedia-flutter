@@ -245,6 +245,8 @@ class _HomescreenState extends State<Homescreen> {
                                                                     postid: cubit
                                                                             .postsid[
                                                                         index]);
+                                                                Socialappcubit.get(context)
+                                                                    .getcomments(postid: cubit.postsid[index]);
                                                                 controller
                                                                     .clear();
                                                               },
