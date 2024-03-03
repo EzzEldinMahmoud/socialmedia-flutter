@@ -41,7 +41,7 @@ class _MessagesscreenState extends State<Messagesscreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  buildmymessageitem('hello'),
+                  buildmymessageitem('hellosdfasfasjkhgfaslkjgnolasnglkanglkasng'),
                   buildmessageitem('hello'),
 
                 ],
@@ -50,67 +50,65 @@ class _MessagesscreenState extends State<Messagesscreen> {
           ),
           Align(
             alignment: AlignmentDirectional.bottomCenter,
-            child: Padding(
-              padding:  EdgeInsets.symmetric(vertical: 20.h,horizontal: 20.w),
-              child: Container(
-                padding: EdgeInsets.all(15.0.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0.r),
-                  color: Colors.grey[200],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'type your message here ...',
-                          hintStyle: GoogleFonts.poppins(fontSize: 14.sp)
-                        ),
+            child: Container(
+              padding: EdgeInsets.all(15.0.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0.r),
+                color: Colors.grey[200],
+
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'type your message here ...',
+                        hintStyle: GoogleFonts.poppins(fontSize: 14.sp)
                       ),
                     ),
-                    SizedBox(width: 15.0.w,),
-                    IconButton(
+                  ),
+                  SizedBox(width: 15.0.w,),
+                  IconButton(
 
-                      onPressed: (){
-                       showDialog(context: context, builder: (context){
-                          return AlertDialog(
-                            title: const Text('Add Image'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ListTile(
-                                  leading: const Icon(Icons.camera),
-                                  title: const Text('Camera'),
-                                  onTap: (){},
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.image),
-                                  title: const Text('Gallery'),
-                                  onTap: (){},
-                                ),
-                              ],
-                            ),
-                          );
-                       });
-                      },
-                      icon: const Icon(Icons.attach_file),
-                    ) ,
-                    SizedBox(width: 5.0.w,),
-                    CircleAvatar(
-                      backgroundColor: Colors.blue[300],
-                      radius: 25.0.r,
-                      child: Transform.rotate(
-                        angle: -0.5,
-                        child: IconButton(
+                    onPressed: (){
+                     showDialog(context: context, builder: (context){
+                        return AlertDialog(
+                          title: const Text('Add Image'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                leading: const Icon(Icons.camera),
+                                title: const Text('Camera'),
+                                onTap: (){},
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.image),
+                                title: const Text('Gallery'),
+                                onTap: (){},
+                              ),
+                            ],
+                          ),
+                        );
+                     });
+                    },
+                    icon: const Icon(Icons.attach_file),
+                  ) ,
+                  SizedBox(width: 5.0.w,),
+                  CircleAvatar(
+                    backgroundColor: Colors.blue[300],
+                    radius: 25.0.r,
+                    child: Transform.rotate(
+                      angle: -0.5,
+                      child: IconButton(
 
-                          onPressed: (){},
-                          icon: const Icon(Icons.send),
-                        ),
+                        onPressed: (){},
+                        icon: const Icon(Icons.send,color: Colors.white,),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
           )
@@ -137,7 +135,14 @@ class _MessagesscreenState extends State<Messagesscreen> {
           ),
           color: Colors.blue[300],
         ),
-        child: Text(message),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end
+,
+          children: [
+            Text(message,style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp),),
+            Text('1 month ago',style: GoogleFonts.poppins(color: Colors.white,fontSize: 8.sp),),
+          ],
+        ),
       ),
     ),
   );
@@ -146,6 +151,7 @@ class _MessagesscreenState extends State<Messagesscreen> {
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
+
         padding: EdgeInsets.symmetric(horizontal: 15.0.w,vertical: 10.0.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadiusDirectional.only(
@@ -155,7 +161,14 @@ class _MessagesscreenState extends State<Messagesscreen> {
           ),
           color: Colors.grey[300],
         ),
-        child: Text(message,style: GoogleFonts.poppins(color: Colors.black,fontSize: 14.sp),),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start
+          ,
+          children: [
+            Text(message,style: GoogleFonts.poppins(color: Colors.black,fontSize: 14.sp),),
+            Text('1 month ago',style: GoogleFonts.poppins(color: Colors.black,fontSize: 8.sp),),
+          ],
+        ),
       ),
     ),
   );
