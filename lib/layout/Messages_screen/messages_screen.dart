@@ -15,11 +15,15 @@ class Messagesscreen extends StatefulWidget {
 }
 
 class _MessagesscreenState extends State<Messagesscreen> {
+  var message = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     final user = arguments['user'];
-    return BlocConsumer<Socialappcubit,socialappstate>(builder: (context,state){
+    return BlocConsumer<Socialappcubit,socialappstate>(listener: (context, state){
+
+    },builder: (context,state){
+
       return Scaffold(
         appBar: AppBar(
           title: Row(
@@ -61,6 +65,7 @@ class _MessagesscreenState extends State<Messagesscreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller:message,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'type your message here ...',
@@ -103,7 +108,11 @@ class _MessagesscreenState extends State<Messagesscreen> {
                       angle: -0.5,
                       child: IconButton(
 
-                        onPressed: (){},
+                        onPressed: (){
+
+                          Socialappcubit.get(context).sendmessage(receiverId: user.uId, dateTime: DateTime.now().toString(), text: message.text);
+                       message.clear();
+                        },
                         icon: const Icon(Icons.send,color: Colors.white,),
                       ),
                     ),
@@ -117,8 +126,6 @@ class _MessagesscreenState extends State<Messagesscreen> {
           ]
         ),
       );
-    }, listener: (context, state){
-
     },);
   }
   Widget buildmymessageitem (message) => Align(

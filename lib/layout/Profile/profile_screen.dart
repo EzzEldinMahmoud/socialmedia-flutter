@@ -4,6 +4,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/apptheme.dart';
 
@@ -56,7 +57,7 @@ class Settingscreen extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    '${cubit.bio}',
+                    '${cubit.bio!.isEmpty ? 'Empty Soul':cubit.bio}',
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w200,
@@ -146,19 +147,18 @@ class Settingscreen extends StatelessWidget {
                     }),)
                     );
                   }, fallback:(context){
-                    return Padding(
-                      padding:  EdgeInsets.all(14.0.r),
-                      child:  Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
 
-                             Text("you haven't uploaded anything yet !",style: TextStyle(
-                               color: Colors.white,fontSize: 14.sp
-                             )),
+                           Center(
+                             child: Text("You haven't uploaded anything yet",style: GoogleFonts.poppins(
+                               fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.bold
+                             ), textAlign: TextAlign.center,),
+                           ),
 
-                        ],
-                      ),
+                      ],
                     );
                   })
 

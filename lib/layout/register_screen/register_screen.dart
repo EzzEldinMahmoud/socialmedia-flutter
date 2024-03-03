@@ -144,20 +144,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         );
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text(value['message'])),
+                                          SnackBar(content: Text("Something went wrong try again later",style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp))),
                                         );
                                       }
                                     }).catchError((onError){
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(onError.toString())),
+                                        SnackBar(content: Text("Something went wrong try again later",style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp),)
+                                        ,backgroundColor: Colors.red,
+                                        ),
                                       );
                                     });
 
 
 
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text('Processing Data')),
-                                    );
+
                                   }
 
                                 },

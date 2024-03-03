@@ -196,8 +196,7 @@ class SocialappGETMessagesSERRORstate extends socialappstate {
 class SocialappSENDMessagesSLOADINGstate extends socialappstate {}
 
 class SocialappSENDMessagesSSuccessstate extends socialappstate {
-  List<MessageModel> messageModel;
-  SocialappSENDMessagesSSuccessstate(this.messageModel);
+
 }
 
 class SocialappSENDMessagesSERRORstate extends socialappstate {

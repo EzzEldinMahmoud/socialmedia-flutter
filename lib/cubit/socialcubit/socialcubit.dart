@@ -9,12 +9,14 @@ import 'package:chatapp/models/comment_model.dart';
 import 'package:chatapp/models/post_model.dart';
 import 'package:chatapp/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../../layout/home_screen_folder/home_screen.dart';
+import '../../models/message_model.dart';
 import '../../shared/local/cachehelper.dart';
 
 class Socialappcubit extends Cubit<socialappstate> {
@@ -287,7 +289,7 @@ class Socialappcubit extends Cubit<socialappstate> {
   }
   List userposts = [];
   //...........................................................................................
-
+  var uid = StorageUtil.getString('uid');
 //get user posts
   void getuserposts(){
     emit(SocialappUSERPOSTSinitialstate());
@@ -311,7 +313,31 @@ class Socialappcubit extends Cubit<socialappstate> {
   //to do:
   // chat system function
   void getmessages(){}
-  void sendmessage(){}
+  void sendmessage({
+    required String receiverId,
+    required String dateTime,
+    required String text,
+    String? image,
+}){
+
+    MessageModel model = MessageModel(recieverId: receiverId, datetime: dateTime, senderId: uid, image: image, text: text);
+    // set user chat
+    FirebaseFirestore.instance.collection('users').doc(uid).collection('chats').doc(receiverId).collection('messages').add(
+      model.toMap()
+    ).then((value)  {
+      emit(SocialappSENDMessagesSSuccessstate());
+    }).catchError((error){
+      emit(SocialappSENDMessagesSERRORstate(error.toString()));
+    });
+    // set reciever chat
+    FirebaseFirestore.instance.collection('users').doc(receiverId).collection('chats').doc(uid).collection('messages').add(
+        model.toMap()
+    ).then((value)  {
+      emit(SocialappSENDMessagesSSuccessstate());
+    }).catchError((error){
+      emit(SocialappSENDMessagesSERRORstate(error.toString()));
+    });
+  }
 
 //...........................................................................................
 //bottom nav bar

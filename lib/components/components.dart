@@ -81,7 +81,7 @@ focusedBorder: const OutlineInputBorder(
 ),
         focusColor: Colors.white,
         labelStyle: const TextStyle(
-          color: Colors.white
+          color: Colors.grey
         ),
 
         fillColor: Colors.black,
@@ -124,7 +124,7 @@ Widget defaultbottom({
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.blue,
           ),
         ),
       ),

@@ -97,6 +97,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                           defaultTextFormField(
                               controller: passwordfield,
                               label: "Password",
+
                               hint: 'EXAMPLEhere123@#',
                               type: TextInputType.visiblePassword,
                               obscure: true,
@@ -137,7 +138,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                                                     .showSnackBar(
                                                    SnackBar(
                                                       content: Text(
-                                                          'login success!',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp)),backgroundColor:Colors.green),
+                                                          'checking...',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp)),backgroundColor:Colors.grey),
                                                 )
                                               })
                                           .catchError((e) {
@@ -151,13 +152,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                                         );
 
                                       });
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                         SnackBar(
-                                            content: Text('Checking...',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp))
-                                         ,backgroundColor: Colors.blue,
-                                         ),
-                                      );
+
                                     }
                                   },
                                   color: Colors.blue,
