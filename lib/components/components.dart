@@ -1,13 +1,9 @@
 import 'dart:io';
 
-import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:chatapp/components/apptheme.dart';
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:math' as math;
-import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:ionicons/ionicons.dart';
 Widget  buildchatitem(user, BuildContext context) {
@@ -21,11 +17,11 @@ Widget  buildchatitem(user, BuildContext context) {
 
         padding: EdgeInsets.all(10.r),
         decoration: BoxDecoration(
-          boxShadow: [
+          boxShadow: const [
 
           ],
           borderRadius: BorderRadius.circular(10.r),
-          color: Colors.black,
+          color: Colors.white,
         ),
         child: Row(
           children: [
@@ -42,13 +38,13 @@ Widget  buildchatitem(user, BuildContext context) {
                 Text(
                   '${user.name.toUpperCase()}',overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      fontSize: 16.0.sp,fontWeight: FontWeight.bold,color: Colors.white
+                      fontSize: 16.0.sp,fontWeight: FontWeight.bold,color: Colors.black
                   ),
                 ),
                 Text(
-                  'Last message',
+                  '${user.bio.toString().length > 0 ? user.bio :'Empty Soul'}' ,
                   style: TextStyle(
-                    fontSize: 16.0.sp,
+                    fontSize: 16.0.sp,color: Colors.black
                   ),overflow: TextOverflow.ellipsis,
 
                 ),
@@ -80,11 +76,11 @@ Widget defaultTextFormField({
       obscureText: obscure ?? false,
 
       decoration: InputDecoration(
-focusedBorder: OutlineInputBorder(
+focusedBorder: const OutlineInputBorder(
   borderSide: BorderSide(color: Colors.white)
 ),
         focusColor: Colors.white,
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.white
         ),
 
@@ -104,7 +100,7 @@ focusedBorder: OutlineInputBorder(
       ),
       validator: (value) => validate(value!),
     );
-Widget DefaultButton({
+Widget defaultbottom({
   double width = double.infinity,
   Color background = Colors.blue,
   bool isUpperCase = true,
@@ -116,6 +112,12 @@ Widget DefaultButton({
     Container(
       width: width,
       height: 40.0.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius),
+        border: Border.all(color:background),
+        color: Colors.transparent,
+
+      ),
       child: MaterialButton(
         height: height,
         onPressed: function,
@@ -125,10 +127,6 @@ Widget DefaultButton({
             color: Colors.white,
           ),
         ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-        color: background,
       ),
     );
 
@@ -147,26 +145,25 @@ Widget defaultImageContainer({
         image: DecorationImage(
           image: image!.isEmpty
               ? Image.file(imagefile!) as ImageProvider<Object>
-              : NetworkImage(image!),
+              : NetworkImage(image),
           fit: BoxFit.cover,
         ),
       ),
     );
-
 Widget defaultPostcard({
-  required String? PROFILEimage,
+  required String? profileimage,
   required String? name,
   required String? time,
   required String? text,
   required String? postImage,
   required String? like,
+  required String? bio,
 
 
   required int? imageslength,required BuildContext context,required int index,
   required Function()? onpresscomment,
 })
     {
-      final ThemeData theme = Theme.of(context);
    return  Padding(
       padding: const EdgeInsets.all(20.0).w,
       child: Column(children: [
@@ -177,7 +174,7 @@ Widget defaultPostcard({
               height: 45.h,
               child: CircleAvatar(
                 radius: 30.r,
-                backgroundImage: NetworkImage(PROFILEimage!),
+                backgroundImage: NetworkImage(profileimage!),
               ),
             ),
             SizedBox(
@@ -190,16 +187,16 @@ Widget defaultPostcard({
                   name!,
                   style:
                   TextStyle(
-                      fontSize: darktheme.textTheme.bodyMedium!.fontSize, fontWeight: FontWeight.bold, color:darktheme.textTheme.bodyMedium!.color,),
+                      fontSize: darktheme.textTheme.bodyMedium!.fontSize, fontWeight: FontWeight.bold, color:lighttheme.textTheme.bodyMedium!.color,),
                 ),
                 Text(
-                  '',
+                  bio!,
                   style:
                   TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w200),
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
@@ -284,7 +281,7 @@ itemCount: imageslength!,
                   size: 30.sp,
 
                 )),
-            Spacer(),
+            const Spacer(),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
@@ -297,17 +294,24 @@ itemCount: imageslength!,
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            like!.toString() + ' Likes',
+            '${like!} Likes',
             style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
           ),
         ),
         Align(
-            alignment: Alignment.centerLeft,
+          alignment: Alignment.centerLeft,
+          child: GestureDetector(
+            onTap: (){
+
+
+            },
             child: Text(
-              text!,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
-            )),
+                text!,
+                overflow:TextOverflow.visible,
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+              ),
+          ),
+        ),
 
         Align(
             alignment: Alignment.centerLeft,
@@ -330,7 +334,7 @@ Widget defaultappbar({
           Navigator.pop(context!);
         },
         icon: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.pop(context!);
           },

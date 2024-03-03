@@ -1,11 +1,10 @@
 import 'package:chatapp/components/components.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../cubit/socialcubit/socialcubit.dart';
-import '../cubit/socialcubit/socialstates.dart';
+import '../../cubit/socialcubit/socialcubit.dart';
+import '../../cubit/socialcubit/socialstates.dart';
 
 class CREATEPOST extends StatefulWidget {
   const CREATEPOST({super.key});
@@ -83,7 +82,7 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                             if (_formKey.currentState!.validate()) {
                               if (Socialappcubit.get(context).postimagehere ==
                                   null) {
-                                Socialappcubit.get(context).CreatePost(
+                                Socialappcubit.get(context).createpost(
                                     datetime: '${DateTime.now()}',
                                     postimage: '',
                                     text: textcontroller.text);
@@ -119,14 +118,14 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                           onPressed: () {
                             Socialappcubit.get(context).getpostImage(context);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.image,
                             color: Colors.black,
                           ),
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.emoji_emotions_outlined,
                             color: Colors.black,
                           ),
@@ -141,9 +140,9 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                   child: Column(
                     children: [
                       if (state is SocialappCreatePostloadingstate)
-                        LinearProgressIndicator(),
+                        const LinearProgressIndicator(),
                       if (state is SocialappCreatePostImageLOADINGstate)
-                        LinearProgressIndicator(),
+                        const LinearProgressIndicator(),
                       Padding(
                         padding: EdgeInsets.all(8.sp),
                         child: Row(
@@ -225,7 +224,7 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                                   maxLines: 5,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Stack(
                                 children: [
                                   Container(
@@ -243,7 +242,7 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                                             width: double.infinity,
                                             height: 200.h,
                                           )
-                                        : SizedBox(),
+                                        : const SizedBox(),
                                   ),
                                   Socialappcubit.get(context).postimagehere !=
                                           null
@@ -257,14 +256,14 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                                                 Socialappcubit.get(context)
                                                     .removepostimage();
                                               },
-                                              icon: Icon(
+                                              icon: const Icon(
                                                 Icons.close,
                                                 color: Colors.black,
                                               ),
                                             ),
                                           ),
                                         )
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ],
                               )
                             ],

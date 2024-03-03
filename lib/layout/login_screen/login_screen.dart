@@ -1,14 +1,13 @@
 import 'package:chatapp/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../components/components.dart';
-import '../cubit/cubit.dart';
-import '../shared/local/cachehelper.dart';
+import '../../components/components.dart';
+import '../../cubit/cubit.dart';
+import '../../shared/local/cachehelper.dart';
 
 class LOGINSCREEN extends StatefulWidget {
   const LOGINSCREEN({super.key});
@@ -34,13 +33,13 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
           if (state is appLOGINsuccessstate) {
             StorageUtil.putString('uid', state.uid ?? "");
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Login Success')),
+              const SnackBar(content: Text('Login Success')),
             );
             Navigator.pushReplacementNamed(context, '/main');
           }
           if (state is appLOGINerrorstate) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.onerror.toString() ?? 'error')),
+              const SnackBar(content: Text("Something gone Wrong try again later")),
             );
           }
         },
@@ -86,7 +85,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                               obscure: false,
                               icon: Icons.email_outlined,
                               validate: (value) {
-                                if (value == null || value.isEmpty) {
+                                if (value.isEmpty) {
                                   return 'Please enter Email';
                                 }
                                 return null;
@@ -104,7 +103,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                               icon: Icons.lock_outline,
                               suffix: Icons.remove_red_eye_outlined,
                               validate: (value) {
-                                if (value == null || value.isEmpty) {
+                                if (value.isEmpty) {
                                   return 'Please enter  Password';
                                 }
                                 return null;
@@ -136,23 +135,33 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                                           .then((value) => {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
-                                                  const SnackBar(
+                                                   SnackBar(
                                                       content: Text(
-                                                          'login success!')),
+                                                          'login success!',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp)),backgroundColor:Colors.green),
                                                 )
                                               })
                                           .catchError((e) {
-                                        print(e.toString());
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                             SnackBar(
+                                                content: Text(
+                                                    'login Failed Wrong E-mail or Password!',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp),)
+                                            ,backgroundColor:Colors.red
+                                            ),
+                                        );
+
                                       });
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        const SnackBar(
-                                            content: Text('Processing Data')),
+                                         SnackBar(
+                                            content: Text('Checking...',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp))
+                                         ,backgroundColor: Colors.blue,
+                                         ),
                                       );
                                     }
                                   },
                                   color: Colors.blue,
-                                  child: Text(
+                                  child: const Text(
                                     'LOGIN',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -161,7 +170,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                                 );
                               },
                               fallback: (BuildContext context) {
-                                return Center(
+                                return const Center(
                                     child: CircularProgressIndicator(
                                   color: Colors.blue,
                                 ));

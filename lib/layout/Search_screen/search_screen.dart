@@ -2,8 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../components/components.dart';
-import 'chatscreen.dart';
+import '../../components/components.dart';
+import '../chat_screen/chat_screen.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

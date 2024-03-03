@@ -1,12 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../components/components.dart';
-import '../cubit/cubit.dart';
-import '../cubit/states.dart';
+import '../../components/components.dart';
+import '../../cubit/cubit.dart';
+import '../../cubit/states.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -29,17 +29,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
        listener: (BuildContext context, Object? state) {
           if (state is appREGISTERsuccessstate) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Register Success')),
+              SnackBar(content: Text('Register Success!',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp)),backgroundColor:Colors.green),
             );
           }
           if (state is appREGISTERerrorstate) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.onerror.toString() ?? 'error')),
+              SnackBar(content: Text(  'Register Failed Try again later!',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp),)
+                  ,backgroundColor:Colors.red),
             );
           }
           if(state is appCREATEUSERsuccessstate){
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Create User Success')),
+              SnackBar(content: Text('Create User Success',style: GoogleFonts.poppins(color: Colors.white,fontSize: 14.sp)),backgroundColor:Colors.green),
             );
             Navigator.pushReplacementNamed(context, '/login');
           }
@@ -80,7 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
 
                         defaultTextFormField(controller: username, label: "User Name", hint: 'example', type: TextInputType.name, obscure: false, icon: Icons.person_outline, validate: (value){
-                          if (value == null || value.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Please enter User Name';
                           }
                           return null;
@@ -89,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 20.h,
                         ),
                         defaultTextFormField(controller: emailfield, label: "Email Address", hint: 'example@hint.com', type: TextInputType.emailAddress, obscure: false, icon: Icons.email_outlined, validate: (value){
-                          if (value == null || value.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Please enter Email';
                           }
                           return null;
@@ -98,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 20.h,
                         ),
                         defaultTextFormField(controller: passwordfield, label: "Password", hint: 'EXAMPLEhere123@#', type: TextInputType.visiblePassword, obscure: true, icon: Icons.lock_outline,suffix: Icons.remove_red_eye_outlined, validate: (value){
-                          if (value == null || value.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Please enter  Password';
                           }
                           return null;
@@ -108,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 20.h,
                         ),
                         defaultTextFormField(controller: phonefield, label: "phone number", hint: '01115216589', type: TextInputType.phone, obscure: false, icon: Icons.phone_android_outlined, validate: (value){
-                          if (value == null || value.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Please enter  Phone Number';
                           }
                           return null;
@@ -161,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                                 },
                                 color: Colors.blue,
-                                child: Text(
+                                child: const Text(
                                   'SIGN UP',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -170,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
 
                             },
-                            fallback: (BuildContext context) { return Center(
+                            fallback: (BuildContext context) { return const Center(
                               child: CircularProgressIndicator(color: Colors.blue,)
                             ); },
                              ),

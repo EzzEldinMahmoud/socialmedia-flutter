@@ -3,6 +3,7 @@ import 'package:chatapp/cubit/socialcubit/socialstates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Messagesscreen extends StatefulWidget {
 
@@ -64,6 +65,7 @@ class _MessagesscreenState extends State<Messagesscreen> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'type your message here ...',
+                          hintStyle: GoogleFonts.poppins(fontSize: 14.sp)
                         ),
                       ),
                     ),
@@ -153,7 +155,7 @@ class _MessagesscreenState extends State<Messagesscreen> {
           ),
           color: Colors.grey[300],
         ),
-        child: Text(message),
+        child: Text(message,style: GoogleFonts.poppins(color: Colors.black,fontSize: 14.sp),),
       ),
     ),
   );

@@ -1,12 +1,11 @@
 import 'package:chatapp/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../cubit/socialcubit/socialcubit.dart';
-import '../cubit/socialcubit/socialstates.dart';
+import '../../cubit/socialcubit/socialcubit.dart';
+import '../../cubit/socialcubit/socialstates.dart';
 
 class EditProfile extends StatefulWidget {
  const  EditProfile({super.key});
@@ -25,7 +24,6 @@ var biocontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final formkey = GlobalKey<FormState>();
 
     return BlocProvider(
       create: (BuildContext context) {
@@ -40,7 +38,7 @@ var biocontroller = TextEditingController();
 
           return Scaffold(
             appBar: AppBar(
-              title: Text('Edit Profile'),
+              title: const Text('Edit Profile'),
               actions: [
                 TextButton(
                     onPressed: () {
@@ -50,7 +48,7 @@ var biocontroller = TextEditingController();
                           bio:  biocontroller.text.isNotEmpty ? biocontroller.text : cubit?.bio,
                           image: Socialappcubit.get(context).profileimageurl.isNotEmpty  ?  Socialappcubit.get(context).profileimageurl : cubit?.image);
                     },
-                    child: Text(
+                    child: const Text(
                       'Update',
                       style: TextStyle(color: Colors.black),
                     ))
@@ -89,7 +87,7 @@ var biocontroller = TextEditingController();
                                         Socialappcubit.get(context)
                                             .getProfileImage(context);
                                       },
-                                      icon: Icon(Icons.camera_alt_outlined)))
+                                      icon: const Icon(Icons.camera_alt_outlined)))
                             ]),
                         SizedBox(
                           height: 20.h,
@@ -103,7 +101,7 @@ var biocontroller = TextEditingController();
                                     phone: cubit?.phone ?? phonecontroller.text,
                                     bio: cubit?.bio ?? biocontroller.text);
                               },
-                              child: Text('Change Profile Image'),
+                              child: const Text('Change Profile Image'),
                             ),
                             SizedBox(
                               height: 20.h,
@@ -113,7 +111,7 @@ var biocontroller = TextEditingController();
                           children: [
 
                             defaultTextFormField(controller: namecontroller , label: "User Name",hint: '${ cubit?.name }', type: TextInputType.name, obscure: false, icon: Icons.person_outline, validate: (value){
-                              if (value == null || value.isEmpty) {
+                              if (value.isEmpty) {
                                 return 'Please enter User Name';
                               }
                               return null;
@@ -126,7 +124,7 @@ var biocontroller = TextEditingController();
                             ),
 
                             defaultTextFormField(controller: biocontroller, label: "Bio" ,hint: '${ cubit?.bio }',type: TextInputType.name,  icon: Icons.person_outline, validate: (value){
-                              if (value == null || value.isEmpty) {
+                              if (value.isEmpty) {
                                 return 'Please enter User Name';
                               }
                               return null;
@@ -138,7 +136,7 @@ var biocontroller = TextEditingController();
                               height: 20.h,
                             ),
                             defaultTextFormField(controller: phonecontroller, label: "phone number",hint: '${ cubit?.phone }' , type: TextInputType.phone,  icon: Icons.phone_android_outlined, validate: (value){
-                              if (value == null || value.isEmpty) {
+                              if (value.isEmpty) {
                                 return 'Please enter  Phone Number';
                               }
                               return null;
@@ -153,7 +151,7 @@ var biocontroller = TextEditingController();
                 );
               },
               fallback: (BuildContext context) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               },

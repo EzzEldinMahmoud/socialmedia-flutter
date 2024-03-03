@@ -1,13 +1,12 @@
-import 'package:chatapp/layout/EditProfile.dart';
-import 'package:chatapp/layout/Homescreen.dart';
-import 'package:chatapp/layout/MainScreen.dart';
-import 'package:chatapp/layout/Register.dart';
-import 'package:chatapp/layout/SearchPage.dart';
-import 'package:chatapp/layout/WelcomeScreen.dart';
-import 'package:chatapp/layout/chatscreen.dart';
-import 'package:chatapp/layout/createPOST.dart';
-import 'package:chatapp/layout/login.dart';
-import 'package:chatapp/layout/messagescreen.dart';
+import 'package:chatapp/layout/Edit_post/edit_profile.dart';
+import 'package:chatapp/layout/nav_screen/bottom_navigation_screen.dart';
+import 'package:chatapp/layout/register_screen/register_screen.dart';
+import 'package:chatapp/layout/Search_screen/search_screen.dart';
+import 'package:chatapp/layout/welcome_page/welcome_screen.dart';
+import 'package:chatapp/layout/chat_screen/chat_screen.dart';
+import 'package:chatapp/layout/create_post/create_post_screen.dart';
+import 'package:chatapp/layout/login_screen/login_screen.dart';
+import 'package:chatapp/layout/Messages_screen/messages_screen.dart';
 import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:chatapp/shared/remote/diohelper.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,6 +21,7 @@ import 'cubit/socialcubit/socialcubit.dart';
 import 'cubit/socialcubit/socialstates.dart';
 import 'cubit/states.dart';
 import 'firebase_options.dart';
+import 'layout/home_screen_folder/home_screen.dart';
 
 Widget? widget;
 void main() async{
@@ -37,35 +37,34 @@ await Firebase.initializeApp(
   await ScreenUtil.ensureScreenSize();
   var uid = StorageUtil.getString('uid');
   if(uid.isEmpty){
-    widget = WelcomePage();
+    widget = const WelcomePage();
   }else{
-    widget = MainScreen();
+    widget = const MainScreen();
   }
-  print(uid);
-  runApp(const myapp());
+  runApp(const MyApp());
 }
 
 
 
 final Map<String, Widget Function(BuildContext)> routes = {
-  '/': (BuildContext context) => widget ?? WelcomePage(),
-  '/main': (BuildContext context) => MainScreen(),
-  '/home': (BuildContext context) => Homescreen(),
-  '/login': (BuildContext context) => LOGINSCREEN(),
-  '/register': (BuildContext context) => RegisterScreen(),
-  '/editprofile': (BuildContext context) => EditProfile(),
-  '/createpost': (BuildContext context) => CREATEPOST(),
-  '/chat': (BuildContext context) => CHATSCREEN(),
-  '/search': (BuildContext context) => SearchPage(),
+  '/': (BuildContext context) => widget ?? const WelcomePage(),
+  '/main': (BuildContext context) => const MainScreen(),
+  '/home': (BuildContext context) => const Homescreen(),
+  '/login': (BuildContext context) => const LOGINSCREEN(),
+  '/register': (BuildContext context) => const RegisterScreen(),
+  '/editprofile': (BuildContext context) => const EditProfile(),
+  '/createpost': (BuildContext context) => const CREATEPOST(),
+  '/chat': (BuildContext context) => const CHATSCREEN(),
+  '/search': (BuildContext context) => const SearchPage(),
 
 
-  '/messagescreen': (BuildContext context) => Messagesscreen(),
+  '/messagescreen': (BuildContext context) => const Messagesscreen(),
 
 
 };
 
-class myapp extends StatelessWidget {
-  const myapp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,16 +74,16 @@ class myapp extends StatelessWidget {
       ],
       child:BlocConsumer<appcubit, appstate>(
           listener: (context, state) {},
-          builder: (Context, State) {
+          builder: (context, state) {
             return ScreenUtilInit(
-                designSize:  Size(360, 690),
+                designSize:  const Size(360, 690),
                 minTextAdapt: true,
                 splitScreenMode: false,
 // Use builder only if you need to use library outside ScreenUtilInit context
                 builder: (ctx, child) {
 
                   return MaterialApp(
-                    themeMode: ThemeMode.dark,
+                    themeMode: ThemeMode.light,
                     theme: lighttheme,
                     initialRoute: '/',
                     darkTheme: darktheme,

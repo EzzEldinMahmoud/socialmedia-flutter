@@ -1,18 +1,15 @@
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
-import 'package:chatapp/layout/Homescreen.dart';
-import 'package:chatapp/models/usermodel.dart';
+import 'package:chatapp/models/user_model.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
-import 'dart:math' as math;
-import '../components/components.dart';
+import '../../components/components.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'Homescreen.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -40,20 +37,20 @@ class _HomescreenState extends State<Homescreen> {
         listener: (BuildContext context, socialappstate state) {
           if (state is SocialappGETCOMMENTSSuccessstate) {
             comments = state.commentmodel;
-            print(comments);
+
           }
           if (state is SocialappGETUSERsuccessstate) {
             user = state.usermodel;
-            print(user);
+
           }
           if (state is SocialappGETPOSTSSuccessstate) {
             posts = state.postmodel;
-            print(posts);
+
           }
         },
         builder: (BuildContext context, socialappstate state) {
           return ConditionalBuilder(
-            condition: Socialappcubit.get(context).posts.length > 0 &&
+            condition: Socialappcubit.get(context).posts.isNotEmpty &&
                 Socialappcubit.get(context).usermodel != null,
             builder: (BuildContext context) {
               var cubit = Socialappcubit.get(context);
@@ -65,7 +62,7 @@ class _HomescreenState extends State<Homescreen> {
                     itemBuilder: (BuildContext context, int index) {
 //default post card  in home screen
                       return defaultPostcard(
-                          PROFILEimage:
+                          profileimage:
                               Socialappcubit.get(context).posts[index].image,
                           name: Socialappcubit.get(context).posts[index].name,
                           time: timeago.format(DateTime.parse(
@@ -77,7 +74,7 @@ class _HomescreenState extends State<Homescreen> {
                               ? ""
                               : posts?[index].postimage,
                           like:
-                              '${Socialappcubit.get(context).likes[index] ?? 0}',
+                              '${Socialappcubit.get(context).likes[index]}',
                           imageslength: 1,
                           context: context,
                           index: index,
@@ -131,12 +128,12 @@ class _HomescreenState extends State<Homescreen> {
                                                 SizedBox(
                                                   height: 10.h,
                                                 ),
-                                                Divider(
+                                                const Divider(
                                                   thickness: 1,
                                                 ),
                                                 Expanded(
                                                   child: ConditionalBuilder(
-                                                    condition: comments != null,
+                                                    condition: state is SocialappGETCOMMENTSSuccessstate && comments!.isNotEmpty,
                                                     builder:
                                                         (BuildContext context) {
                                                       return SingleChildScrollView(
@@ -187,12 +184,12 @@ class _HomescreenState extends State<Homescreen> {
                                                     },
                                                     fallback:
                                                         (BuildContext context) {
-                                                      return Align(
+                                                      return  Align(
                                                         alignment:
                                                             Alignment.center,
                                                         child: Center(
                                                           child:
-                                                              CircularProgressIndicator(),
+                                                              Text("No comments for this post",style: GoogleFonts.poppins(color: Colors.black,fontSize: 18.sp),),
                                                         ),
                                                       );
                                                     },
@@ -229,7 +226,7 @@ class _HomescreenState extends State<Homescreen> {
                                                                   TextInputType
                                                                       .text,
                                                               decoration:
-                                                                  InputDecoration(
+                                                                  const InputDecoration(
                                                                 labelText:
                                                                     'Write a comment',
                                                                 hintText:
@@ -239,7 +236,7 @@ class _HomescreenState extends State<Homescreen> {
                                                           ),
                                                           IconButton(
                                                               onPressed: () {
-                                                                Socialappcubit.get(context).CreateComment(
+                                                                Socialappcubit.get(context).createcomment(
                                                                     datetime: DateTime
                                                                             .now()
                                                                         .toString(),
@@ -280,7 +277,7 @@ class _HomescreenState extends State<Homescreen> {
                               },
                               context: context,
                             );
-                          });
+                          }, bio:Socialappcubit.get(context).posts[index].bio ?? "Empty Soul" );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(

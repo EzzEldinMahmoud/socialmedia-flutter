@@ -2,12 +2,12 @@
 import 'dart:convert';
 
 import 'package:chatapp/cubit/states.dart';
-import 'package:chatapp/layout/MainScreen.dart';
-import 'package:chatapp/layout/MarketPlace.dart';
-import 'package:chatapp/layout/Settings.dart';
-import 'package:chatapp/layout/chatscreen.dart';
-import 'package:chatapp/layout/createPOST.dart';
-import 'package:chatapp/models/usermodel.dart';
+import 'package:chatapp/layout/nav_screen/bottom_navigation_screen.dart';
+import 'package:chatapp/layout/market_place/market_place_screen.dart';
+import 'package:chatapp/layout/Profile/profile_screen.dart';
+import 'package:chatapp/layout/chat_screen/chat_screen.dart';
+import 'package:chatapp/layout/create_post/create_post_screen.dart';
+import 'package:chatapp/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';

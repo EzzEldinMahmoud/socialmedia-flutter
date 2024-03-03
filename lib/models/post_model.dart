@@ -5,6 +5,7 @@ class PostModel{
   String? datetime;
   String? postimage;
   String? text;
+  String? bio;
 
 
 
@@ -15,6 +16,7 @@ class PostModel{
     required this.uId,
     required this.image,
     required this.text,
+    required this.bio
 
   });
 
@@ -25,6 +27,7 @@ class PostModel{
     uId = json['uId']?? '';
     image = json['image']?? '';
     text = json['text']?? '';
+    bio = json['bio']?? '';
 
   }
 
@@ -36,6 +39,7 @@ class PostModel{
       'uId': uId,
       'postimage': postimage,
       'text': text,
+      'bio':bio
 
     };
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class MARKETPLACE extends StatelessWidget {
-  const MARKETPLACE({super.key});
+class MarketPlace extends StatelessWidget {
+  const MarketPlace({super.key});
 
   @override
   Widget build(BuildContext context) {

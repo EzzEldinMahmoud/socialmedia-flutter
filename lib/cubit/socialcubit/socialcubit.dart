@@ -1,22 +1,20 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
-import 'package:chatapp/layout/Homescreen.dart';
-import 'package:chatapp/layout/MarketPlace.dart';
-import 'package:chatapp/layout/Settings.dart';
-import 'package:chatapp/layout/chatscreen.dart';
-import 'package:chatapp/layout/createPOST.dart';
-import 'package:chatapp/models/Commentmodel.dart';
-import 'package:chatapp/models/Postmodel.dart';
-import 'package:chatapp/models/usermodel.dart';
+import 'package:chatapp/layout/Profile/profile_screen.dart';
+import 'package:chatapp/layout/chat_screen/chat_screen.dart';
+import 'package:chatapp/layout/create_post/create_post_screen.dart';
+import 'package:chatapp/layout/market_place/market_place_screen.dart';
+import 'package:chatapp/models/comment_model.dart';
+import 'package:chatapp/models/post_model.dart';
+import 'package:chatapp/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
+import '../../layout/home_screen_folder/home_screen.dart';
 import '../../shared/local/cachehelper.dart';
 
 class Socialappcubit extends Cubit<socialappstate> {
@@ -88,7 +86,6 @@ class Socialappcubit extends Cubit<socialappstate> {
   //get posts
   void getPosts() {
     emit(SocialappGETPOSTSLOADINGstate());
-    var uid = StorageUtil.getString('uid');
     FirebaseFirestore.instance.collection('posts').get().then((value) {
       for (var element in value.docs) {
         element.reference.collection('likes').get().then((value) {
@@ -120,7 +117,6 @@ class Socialappcubit extends Cubit<socialappstate> {
       profileImage = File(pickedFile.path);
       emit(SocialappGETPROFILEIMAGESuccessstate());
     } else {
-      print('no image selected');
       emit(SocialappGETPROFILEIMAGEERRORstate('no image selected'));
     }
   }
@@ -166,7 +162,6 @@ class Socialappcubit extends Cubit<socialappstate> {
       postimagehere = File(pickedFile.path);
       emit(SocialappGETPostIIMAGESuccessstate());
     } else {
-      print('no image selected');
       emit(SocialappGETPostIIMAGEERRORstate('no image selected'));
     }
   }
@@ -184,17 +179,18 @@ class Socialappcubit extends Cubit<socialappstate> {
       value.ref.getDownloadURL().then((value) {
         emit(SocialappCreatePostImageSuccessstate());
 
-        CreatePost(datetime: datetime, text: text, postimage: value);
+        createpost(datetime: datetime, text: text, postimage: value);
         return value;
       }).catchError((e) {
         emit(SocialappCreatePostImageERRORstate(e.toString()));
+        return e.toString();
       });
     }).catchError((e) {
       emit(SocialappCreatePostImageERRORstate(e.toString()));
     });
   }
 
-  void CreatePost({
+  void createpost({
     required String datetime,
     required String? postimage,
     required String text,
@@ -206,7 +202,7 @@ class Socialappcubit extends Cubit<socialappstate> {
         postimage: postimage ?? ' ',
         uId: usermodel?.uId,
         image: usermodel?.image,
-        text: text);
+        text: text, bio:  usermodel?.bio);
     FirebaseFirestore.instance
         .collection('posts')
         .add(postmodel.toMap())
@@ -262,7 +258,7 @@ class Socialappcubit extends Cubit<socialappstate> {
 //get comments
 
 //create comment
-  void CreateComment({
+  void createcomment({
     required String datetime,
     required String text,
     required String postid,
@@ -288,7 +284,7 @@ class Socialappcubit extends Cubit<socialappstate> {
   }
   List userposts = [];
 //get user posts
-  void Getuserposts(){
+  void getuserposts(){
     emit(SocialappUSERPOSTSinitialstate());
     var uid = StorageUtil.getString('uid');
     FirebaseFirestore.instance.collection('posts').get().then((value) {
@@ -305,6 +301,11 @@ class Socialappcubit extends Cubit<socialappstate> {
 
 
   }
+  //to do:
+  // chat system function
+  void getmessages(){}
+  void sendmessage(){}
+
 //bottom nav bar
   int currentindex = 0;
   List<BottomNavigationBarItem> bottomItems = [
@@ -340,11 +341,11 @@ class Socialappcubit extends Cubit<socialappstate> {
     ),
   ];
   List<Widget> screens = [
-    Homescreen(),
-    CHATSCREEN(),
-    CREATEPOST(),
-    MARKETPLACE(),
-    Settingscreen(),
+    const Homescreen(),
+    const CHATSCREEN(),
+    const CREATEPOST(),
+    const MarketPlace(),
+    const Settingscreen(),
   ];
 
   List<String> titles = [
