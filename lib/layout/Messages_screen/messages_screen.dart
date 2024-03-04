@@ -2,7 +2,9 @@
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,18 +33,24 @@ class _MessagesscreenState extends State<Messagesscreen> {
 
           return Scaffold(
             appBar: AppBar(
-              title: Row(
-                children: [
+              title: SizedBox(
+                width: double.infinity,
+                child: Row(
+                  children: [
 
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(user.image),
-                  ),
-                   SizedBox(width: 10.0.w,),
-                  Text(user.name,style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20.0),
-                  overflow: TextOverflow.ellipsis,
-                  ),const Spacer(),
-                  IconButton(onPressed: (){}, icon: const Icon(Icons.add_ic_call))
-                ],
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(user.image),
+                    ),
+                     SizedBox(width: 5.0.w,),
+                    Expanded(
+                      flex: 1,
+                      child: Text(user.name, overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20.0),
+
+                      ),
+                    ),
+                    IconButton(onPressed: (){}, icon: const Icon(Icons.add_ic_call))
+                  ],
+                ),
               ),
             ),
             body:Flex(

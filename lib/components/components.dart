@@ -3,20 +3,25 @@ import 'dart:io';
 import 'package:chatapp/components/apptheme.dart';
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ionicons/ionicons.dart';
 
+import '../cubit/socialcubit/socialstates.dart';
 import '../layout/policy_dialog/policy_dialog.dart';
 Widget termsandpolicy(context){
   return  Align(
 
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("By creating an account, you are agreeing to our\n " ,style:GoogleFonts.poppins(fontSize: 11.sp,color: Colors.black,fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
                 onTap:(){
@@ -41,53 +46,63 @@ Widget termsandpolicy(context){
   );
 }
 Widget  buildchatitem(user, BuildContext context) {
-  return Padding(
-    padding:  EdgeInsets.all(5.r),
-    child: InkWell(
-      onTap: (){
-        Navigator.pushNamed(context, '/messagescreen',arguments: {'user':user});
-      },
-      child: Container(
+  return BlocConsumer<Socialappcubit,socialappstate>(
+    listener: (BuildContext context, Object? state) {
 
-        padding: EdgeInsets.all(10.r),
-        decoration: BoxDecoration(
-          boxShadow: const [
+    },
+    builder: (BuildContext context, state) {
 
-          ],
-          borderRadius: BorderRadius.circular(10.r),
-          color: Colors.white,
-        ),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 25.0.r,
-              backgroundImage: NetworkImage('${user.image}'),
+      return Padding(
+        padding:  EdgeInsets.all(5.r),
+        child: InkWell(
+          onTap: (){
+            Navigator.pushNamed(context, '/messagescreen',arguments: {'user':user});
+          },
+          child: Container(
+
+            padding: EdgeInsets.all(10.r),
+            decoration: BoxDecoration(
+              boxShadow: const [
+
+              ],
+              borderRadius: BorderRadius.circular(10.r),
+              color: Colors.white,
             ),
-            SizedBox(
-              width: 20.0.w,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  '${user.name.toUpperCase()}',overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: 16.0.sp,fontWeight: FontWeight.bold,color: Colors.black
-                  ),
+                CircleAvatar(
+                  radius: 25.0.r,
+                  backgroundImage: NetworkImage('${user.image}'),
                 ),
-                Text(
-                  '${user.bio.toString().length > 0 ? user.bio :'Empty Soul'}' ,
-                  style: TextStyle(
-                    fontSize: 16.0.sp,color: Colors.black
-                  ),overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  width: 20.0.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${user.name.toUpperCase()}',overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 16.0.sp,fontWeight: FontWeight.bold,color: Colors.black
+                      ),
+                    ),
+                    Text(
+                      '${Socialappcubit.get(context).usermodel?.bio}' ,
+                      style: TextStyle(
+                          fontSize: 16.0.sp,color: Colors.black
+                      ),overflow: TextOverflow.ellipsis,
 
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
-    ),
+      );
+    },
+
+
   );
 }
 Widget defaultTextFormField({

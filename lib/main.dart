@@ -10,6 +10,8 @@ import 'package:chatapp/layout/Messages_screen/messages_screen.dart';
 import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:chatapp/shared/remote/diohelper.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +33,16 @@ void main() async{
 await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
 );
+var token = await FirebaseMessaging.instance.getToken();
+      if (kDebugMode) {
+        print(token);
+      }
+      FirebaseMessaging.onMessage.listen((event) {
+        if (kDebugMode) {
+          print(event.data.toString());
+        }
+      });
+
   await StorageUtil.getInstance();
   await diohelper.init();
   Bloc.observer = MyBlocObserver();

@@ -190,6 +190,19 @@ class SocialappGETMessagesSERRORstate extends socialappstate {
   String? error;
   SocialappGETMessagesSERRORstate(this.error);
 }
+
+//...........................................................................................
+//get messages
+class SocialappGETLastMessagesSLOADINGstate extends socialappstate {}
+
+class SocialappGETLastMessagesSSuccessstate extends socialappstate {
+
+}
+
+class SocialappGETLastMessagesSERRORstate extends socialappstate {
+  String? error;
+  SocialappGETLastMessagesSERRORstate(this.error);
+}
 //...........................................................................................
 //send messages
 class SocialappSENDMessagesSLOADINGstate extends socialappstate {}

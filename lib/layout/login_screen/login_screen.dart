@@ -151,7 +151,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                                                 )
                                               })
                                           .catchError((e) {
-                                        ScaffoldMessenger.of(context)
+                                      ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                              SnackBar(
                                                 content: Text(
@@ -159,7 +159,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                                             ,backgroundColor:Colors.red
                                             ),
                                         );
-
+return 'Error';
                                       });
 
                                     }
@@ -211,7 +211,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
 
                         ],
                       ),
-                    ),Spacer(),
+                    ),const Spacer(),
                     termsandpolicy(context)
                   ],
                 ),
