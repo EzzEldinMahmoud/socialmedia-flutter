@@ -4,8 +4,42 @@ import 'package:chatapp/components/apptheme.dart';
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ionicons/ionicons.dart';
+
+import '../layout/policy_dialog/policy_dialog.dart';
+Widget termsandpolicy(context){
+  return  Align(
+
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text("By creating an account, you are agreeing to our\n " ,style:GoogleFonts.poppins(fontSize: 11.sp,color: Colors.black,fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
+        Row(
+          children: [
+            GestureDetector(
+                onTap:(){
+                  showDialog(context: context, builder: (context){
+                    return const PolicyDialog(mdFileName: 'terms_and_conditions.md',);
+                  });
+                },
+                child: Text("Terms & Conditions ",style:GoogleFonts.poppins(fontSize: 12.sp,color: Colors.blue,fontWeight: FontWeight.w700),textAlign:TextAlign.center)),
+            Text(" and ",style:GoogleFonts.poppins(fontSize: 12.sp,color: Colors.blue,fontWeight: FontWeight.w700),textAlign:TextAlign.center),
+            GestureDetector(
+                onTap:(){
+                  showDialog(context: context, builder: (context){
+                    return const PolicyDialog(mdFileName: 'privacy_policy.md',);
+                  });
+                },
+                child: Text("Privacy Policy! ",style:GoogleFonts.poppins(fontSize: 12.sp,color: Colors.blue,fontWeight: FontWeight.w700),textAlign:TextAlign.center)),
+
+          ],
+        )
+      ],
+    ),
+  );
+}
 Widget  buildchatitem(user, BuildContext context) {
   return Padding(
     padding:  EdgeInsets.all(5.r),
@@ -91,7 +125,7 @@ focusedBorder: const OutlineInputBorder(
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: suffixPressed,
-                icon: Icon(suffix),
+                icon:Icon(suffix),
               )
             : null,
         border: OutlineInputBorder(

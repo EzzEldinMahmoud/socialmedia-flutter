@@ -310,9 +310,21 @@ class Socialappcubit extends Cubit<socialappstate> {
   }
   //...........................................................................................
 
-  //to do:
+
   // chat system function
-  void getmessages(){}
+  List<MessageModel> messages = [];
+  void getmessages({required String receiverId}){
+    FirebaseFirestore.instance.collection('users').doc(uid).collection('chats').doc(receiverId).collection('messages').orderBy('datetime').snapshots().listen((event) {
+      messages = [];
+      event.docs.forEach((element) {
+            messages.add(MessageModel.fromJson(element.data())) ;
+      });
+      emit(SocialappGETMessagesSSuccessstate());
+
+    });
+  }
+  //...........................................................................................
+//send message
   void sendmessage({
     required String receiverId,
     required String dateTime,

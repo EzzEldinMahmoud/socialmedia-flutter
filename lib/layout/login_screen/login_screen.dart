@@ -20,10 +20,12 @@ var emailfield = TextEditingController();
 var passwordfield = TextEditingController();
 
 class _LOGINSCREENState extends State<LOGINSCREEN> {
+  bool pwobscure = true ;
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (BuildContext context) {
         return appcubit(appLOGINinitialstate());
@@ -44,14 +46,15 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
           }
         },
         builder: (BuildContext context, state) {
+
           return SafeArea(
             child: Scaffold(
               resizeToAvoidBottomInset: false,
               body: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:  EdgeInsets.all(20.0.r),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'LOGIN',
@@ -100,9 +103,15 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
 
                               hint: 'EXAMPLEhere123@#',
                               type: TextInputType.visiblePassword,
-                              obscure: true,
+                              obscure: pwobscure ,
                               icon: Icons.lock_outline,
-                              suffix: Icons.remove_red_eye_outlined,
+                              suffix:pwobscure ? Icons.visibility_off:Icons.visibility ,
+                              suffixPressed: (){
+                                setState(() {
+                                  pwobscure = ! pwobscure;
+
+                                });
+                              },
                               validate: (value) {
                                 if (value.isEmpty) {
                                   return 'Please enter  Password';
@@ -198,9 +207,12 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                               ),
                             ],
                           ),
+
+
                         ],
                       ),
-                    )
+                    ),Spacer(),
+                    termsandpolicy(context)
                   ],
                 ),
               ),

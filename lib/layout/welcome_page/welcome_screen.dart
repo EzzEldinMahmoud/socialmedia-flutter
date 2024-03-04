@@ -41,6 +41,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       function: (){
                     Navigator.pushNamed(context, '/register');
                   }, text: 'REGISTER', height: 200.0.h),
+                  const Spacer(),
+               termsandpolicy(context)
 
                 ]
 

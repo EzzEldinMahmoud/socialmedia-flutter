@@ -183,8 +183,7 @@ class SocialappRemovePostImagestate extends socialappstate {}
 class SocialappGETMessagesSLOADINGstate extends socialappstate {}
 
 class SocialappGETMessagesSSuccessstate extends socialappstate {
-  List<MessageModel> messageModel;
-  SocialappGETMessagesSSuccessstate(this.messageModel);
+
 }
 
 class SocialappGETMessagesSERRORstate extends socialappstate {
