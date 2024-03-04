@@ -279,7 +279,7 @@ class _HomescreenState extends State<Homescreen> {
                               },
                               context: context,
                             );
-                          }, bio:Socialappcubit.get(context).posts[index].bio ?? "Empty Soul" );
+                          }, bio:Socialappcubit.get(context).posts[index].bio ?? "Empty Soul", stateofuse: '' );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(

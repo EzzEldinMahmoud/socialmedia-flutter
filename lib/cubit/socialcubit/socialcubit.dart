@@ -17,6 +17,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../../layout/home_screen_folder/home_screen.dart';
 import '../../models/message_model.dart';
+import '../../models/singlepost.dart';
 import '../../shared/local/cachehelper.dart';
 
 class Socialappcubit extends Cubit<socialappstate> {
@@ -65,7 +66,7 @@ class Socialappcubit extends Cubit<socialappstate> {
   List<CommentModel> comments = [];
 //...........................................................................................
 //get comments
-  void getcomments({required String postid}) {
+  void getcomments({required String? postid}) {
     emit(SocialappGETCOMMENTSSLOADINGstate());
 
     FirebaseFirestore.instance
@@ -264,9 +265,9 @@ class Socialappcubit extends Cubit<socialappstate> {
 //...........................................................................................
 //create comment
   void createcomment({
-    required String datetime,
-    required String text,
-    required String postid,
+    required String? datetime,
+    required String? text,
+    required String? postid,
   }) {
     emit(SocialappCREATECOMMENTloadingstate());
     String name = StorageUtil.getString('name');
@@ -297,8 +298,13 @@ class Socialappcubit extends Cubit<socialappstate> {
     FirebaseFirestore.instance.collection('posts').get().then((value) {
 
         for (var element in value.docs) {
+
    if(element.data()['uId'] == uid){
-     userposts.add(PostModel.fromJson(element.data()));
+     Map<String,String> allpostdata = new Map.from(element.data());
+allpostdata['postid']= element.reference.id;
+print(allpostdata);
+     userposts.add(SinglePost.fromJson(allpostdata));
+
      emit(SocialappUSERPOSTSsuccessstate(userposts));
    }
 

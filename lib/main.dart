@@ -1,5 +1,6 @@
 import 'package:chatapp/layout/Edit_post/edit_profile.dart';
 import 'package:chatapp/layout/nav_screen/bottom_navigation_screen.dart';
+import 'package:chatapp/layout/post_page/post_page.dart';
 import 'package:chatapp/layout/register_screen/register_screen.dart';
 import 'package:chatapp/layout/Search_screen/search_screen.dart';
 import 'package:chatapp/layout/welcome_page/welcome_screen.dart';
@@ -33,6 +34,7 @@ void main() async{
 await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
 );
+//firebase cloud messaging for notification
 var token = await FirebaseMessaging.instance.getToken();
       if (kDebugMode) {
         print(token);
@@ -68,8 +70,6 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/createpost': (BuildContext context) => const CREATEPOST(),
   '/chat': (BuildContext context) => const CHATSCREEN(),
   '/search': (BuildContext context) => const SearchPage(),
-
-
   '/messagescreen': (BuildContext context) => const Messagesscreen(),
 
 

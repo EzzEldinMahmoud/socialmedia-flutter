@@ -1,5 +1,6 @@
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
+import 'package:chatapp/layout/post_page/post_page.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,6 +114,9 @@ class Settingscreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context){
+                              return PostPage(singlepost: postcubit.userposts[index]);
+                            }));
                           },
                           child:  cubit.uId == postcubit.userposts[index].uId ? SizedBox(
                             height: MediaQuery.of(context).size.height * 0.15,

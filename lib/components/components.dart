@@ -207,10 +207,11 @@ Widget defaultPostcard({
   required String? postImage,
   required String? like,
   required String? bio,
+  required String? stateofuse,
 
 
-  required int? imageslength,required BuildContext context,required int index,
-  required Function()? onpresscomment,
+  required int? imageslength,required BuildContext context, int? index,
+   Function()? onpresscomment,
 })
     {
    return  Padding(
@@ -246,12 +247,41 @@ Widget defaultPostcard({
               ],
             ),
             const Spacer(),
-            IconButton(
-                onPressed: () {},
+            stateofuse == 'singlepage' ?    IconButton(
+                onPressed: () {
+
+
+                },
                 icon: Icon(
-                  Icons.more_vert,
+                  Icons.bookmark_border,
                   size: 30.sp,
-                )),
+                )):    PopupMenuButton(
+
+                icon: Icon(
+                   Icons.more_vert,
+                  size: 30.sp,
+                ), itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem(child: Text(
+                      "Report Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
+                    ),onTap: (){
+
+                    },),
+                    PopupMenuItem(child: Text(
+                      "Edit Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
+                    ),onTap: (){
+
+                    },),
+
+              PopupMenuItem(child: Text(
+              "Delete Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold,color:Colors.red),
+              ),onTap: (){
+                  
+              },),
+
+                  ];
+            },),
+
           ],
         ),
         SizedBox(
@@ -295,79 +325,83 @@ itemCount: imageslength!,
 ),
   * */
         ),
-        Row(
+        Column(
           children: [
-            IconButton(
-                onPressed: () {
-                  Socialappcubit.get(context).likepost(Socialappcubit
-                      .get(context)
-                      .postsid[index]);
+            stateofuse == 'singlepage' ? Container() :   Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Socialappcubit.get(context).likepost(Socialappcubit
+                          .get(context)
+                          .postsid[index!]);
+                    },
+                    icon: Icon(
+                      Ionicons.heart
+                      ,
+                      color: Colors.red,
+                      size: 30.sp,
+                    )
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                IconButton(
+                    onPressed: onpresscomment,
+                    icon: Icon(
+                      Ionicons.chatbubble_outline,
+
+                      size: 30.sp,
+                    )),
+                SizedBox(
+                  width: 10.w,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Ionicons.arrow_redo_outline,
+                      size: 30.sp,
+
+                    )),
+                const Spacer(),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Ionicons.bookmark_outline
+                      ,
+                      size: 30.sp,
+                    )),
+              ],
+            ),
+            stateofuse == 'singlepage' ? Container() :     Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${like!} Likes',
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: GestureDetector(
+                onTap: (){
+
+
                 },
-                icon: Icon(
-                  Ionicons.heart
-                  ,
-                  color: Colors.red,
-                  size: 30.sp,
-                )
+                child: Text(
+                    text!,
+                    overflow:TextOverflow.visible,
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+                  ),
+              ),
             ),
-            SizedBox(
-              width: 10.w,
-            ),
-            IconButton(
-                onPressed: onpresscomment,
-                icon: Icon(
-                  Ionicons.chatbubble_outline,
 
-                  size: 30.sp,
-                )),
-            SizedBox(
-              width: 10.w,
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Ionicons.arrow_redo_outline,
-                  size: 30.sp,
-
-                )),
-            const Spacer(),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Ionicons.bookmark_outline
-                  ,
-                  size: 30.sp,
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  time!,
+                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
                 )),
           ],
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            '${like!} Likes',
-            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
-          ),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: GestureDetector(
-            onTap: (){
-
-
-            },
-            child: Text(
-                text!,
-                overflow:TextOverflow.visible,
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
-              ),
-          ),
-        ),
-
-        Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              time!,
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
-            )),
       ]));
     }
 
