@@ -51,6 +51,7 @@ dependencies:
   ionicons:
   google_fonts: 6.0.0
   flutter_markdown:
+  firebase_messaging:
 
 
 dev_dependencies:
