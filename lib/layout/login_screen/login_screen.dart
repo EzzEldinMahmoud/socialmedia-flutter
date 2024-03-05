@@ -120,8 +120,20 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                               },
                               radius: 10.0),
                           SizedBox(
-                            height: 20.h,
+                            height: 5.h,
                           ),
+                          Align(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: GestureDetector(
+                                onTap: (){
+
+                                },
+                                child: Text("Forgot password ?",style: GoogleFonts.poppins(color:Colors.blue),)),
+                          )
+                      ,
+                      SizedBox(
+                      height: 20.h,
+                    ),
                           Container(
                             width: double.infinity,
                             height: 50.h,
@@ -184,6 +196,7 @@ return 'Error';
                           SizedBox(
                             height: 20.h,
                           ),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -209,9 +222,10 @@ return 'Error';
                           ),
 
 
+
                         ],
                       ),
-                    ),const Spacer(),
+                    ),SizedBox(height: 25.h,),
                     termsandpolicy(context)
                   ],
                 ),

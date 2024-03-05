@@ -1,6 +1,4 @@
-import 'package:chatapp/layout/Edit_post/edit_profile.dart';
 import 'package:chatapp/layout/nav_screen/bottom_navigation_screen.dart';
-import 'package:chatapp/layout/post_page/post_page.dart';
 import 'package:chatapp/layout/register_screen/register_screen.dart';
 import 'package:chatapp/layout/Search_screen/search_screen.dart';
 import 'package:chatapp/layout/welcome_page/welcome_screen.dart';
@@ -24,6 +22,7 @@ import 'cubit/socialcubit/socialcubit.dart';
 import 'cubit/socialcubit/socialstates.dart';
 import 'cubit/states.dart';
 import 'firebase_options.dart';
+import 'layout/Edit_profile/edit_profile.dart';
 import 'layout/home_screen_folder/home_screen.dart';
 
 Widget? widget;
@@ -71,6 +70,8 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/chat': (BuildContext context) => const CHATSCREEN(),
   '/search': (BuildContext context) => const SearchPage(),
   '/messagescreen': (BuildContext context) => const Messagesscreen(),
+  '/welcome': (BuildContext context) => const WelcomePage(),
+
 
 
 };

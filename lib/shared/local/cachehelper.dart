@@ -33,5 +33,11 @@ class StorageUtil {
   static Future<void> clrString(String key) async {
     SharedPreferences prefs = _preferences!;
     prefs.remove(key);
+
+  }
+  //clear all
+  static Future<void> clrAllString() async {
+    SharedPreferences prefs = _preferences!;
+    prefs.clear();
   }
 }
