@@ -229,6 +229,15 @@ class SocialappUSERPOSTSerrorstate extends socialappstate {
   SocialappUSERPOSTSerrorstate(String string);
 }
 //...........................................................................................
+//send  reports
+class SocialappSendEmailSuccessState extends socialappstate {
+
+}
+
+class SocialappSendEmailerrorstate extends socialappstate {
+  SocialappSendEmailerrorstate(String string);
+}
+//...........................................................................................
 //delete posts
 class SocialappDeletePostLOADINGstate extends socialappstate {}
 

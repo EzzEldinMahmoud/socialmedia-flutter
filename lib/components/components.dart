@@ -12,6 +12,7 @@ import 'package:ionicons/ionicons.dart';
 
 import '../cubit/socialcubit/socialstates.dart';
 import '../layout/policy_dialog/policy_dialog.dart';
+import 'email_sender.dart';
 
 Widget termsandpolicy(context) {
   return Align(
@@ -144,11 +145,13 @@ Widget defaultTextFormField({
   String? initialValue,
 }) =>
     TextFormField(
+
       initialValue: initialValue,
       controller: controller,
       keyboardType: type,
       obscureText: obscure ?? false,
       decoration: InputDecoration(
+
         focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white)),
         focusColor: Colors.white,
@@ -286,7 +289,11 @@ Widget defaultPostcard({
                               style: GoogleFonts.poppins(
                                   fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              showModalBottomSheet(context: context, builder: (context){
+                                return ReportDialog(problemId: postid);
+                              });
+                            },
                           ),
                           PopupMenuItem(
                             child: Text(
@@ -353,7 +360,12 @@ Widget defaultPostcard({
                               style: GoogleFonts.poppins(
                                   fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ),
-                            onTap: () {},
+                            onTap: () {showModalBottomSheet(context: context, builder: (context){
+                              return SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              width: MediaQuery.of(context).size.width * 1
+                              ,child: ReportDialog(problemId: postid ));
+                            });},
                           ),
                           PopupMenuItem(
                             child: Text(

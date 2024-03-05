@@ -8,6 +8,7 @@ import 'package:chatapp/layout/market_place/market_place_screen.dart';
 import 'package:chatapp/models/comment_model.dart';
 import 'package:chatapp/models/post_model.dart';
 import 'package:chatapp/models/user_model.dart';
+import 'package:chatapp/shared/remote/diohelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,7 @@ class Socialappcubit extends Cubit<socialappstate> {
       StorageUtil.putString('name', usermodel!.name!);
       StorageUtil.putString('uId', usermodel!.uId!);
       StorageUtil.putString('image', usermodel!.image!);
+      StorageUtil.putString('email', usermodel!.email!);
 
       emit(SocialappGETUSERsuccessstate(usermodel));
     }).catchError((e) {
@@ -83,6 +85,39 @@ class Socialappcubit extends Cubit<socialappstate> {
       emit(SocialappGETCOMMENTSSuccessstate(comments));
     }).catchError((e) {
       emit(SocialappGETCOMMENTSSERRORstate(e.toString()));
+    });
+  }
+  //...........................................................................................
+  //send  Reports
+  void sendReport({
+    required String username,
+    required String userEmail,
+    required String text,
+    required String problemId,
+    required String problemTitle,
+    required String userId
+  }){
+    String service_id = "service_h9vrh1p";
+    String template_id = "template_6pg3266";
+    String user_id= "GkXg11axyk3Ers9JG";
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    diohelper.postData(Url: url.toString(), data: {
+      'service_id':service_id,
+      'template_id':template_id,
+      'user_id':user_id,
+      'template_params':{
+        'user_name':username,
+        "user_email":userEmail,
+        'problem_id':problemId,
+        'problem_title':problemTitle,
+        'user_id':userId,
+        'text':text,
+        'app_name':"CloseWorld"
+      }
+    }).then((value) => {
+    emit(SocialappSendEmailSuccessState())
+    }).catchError((e){
+      emit(SocialappSendEmailerrorstate(e.toString()));
     });
   }
 //...........................................................................................
