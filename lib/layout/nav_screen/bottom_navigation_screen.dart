@@ -1,5 +1,6 @@
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
+import 'package:chatapp/layout/settings_screen/settings_screen.dart';
 import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +71,13 @@ class MainScreen extends StatelessWidget {
                     StorageUtil.clrString('uid');
                     Navigator.pushNamed(context, '/settings');
                   },
-                  icon: const Icon(Icons.settings,color: Colors.black,),
+                  icon: GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return const SettingPage();
+                        }));
+                      },
+                      child: const Icon(Icons.settings,color: Colors.black,)),
                 ): Container(),
 
               ],
