@@ -63,6 +63,7 @@ class _HomescreenState extends State<Homescreen> {
                     itemBuilder: (BuildContext context, int index) {
 //default post card  in home screen
                       return defaultPostcard(
+                        postid: cubit.postsid[index],
                           profileimage:
                               Socialappcubit.get(context).posts[index].image,
                           name: Socialappcubit.get(context).posts[index].name,

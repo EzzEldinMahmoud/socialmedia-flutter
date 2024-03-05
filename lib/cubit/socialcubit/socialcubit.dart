@@ -373,7 +373,7 @@ print(allpostdata);
 
 
   // delete post
-  void DeleteMyPost({required String postid}) async{
+  void deleteMyPost({required String postid}) async{
     try{
       FirebaseFirestore.instance.collection('posts').doc(postid).delete();
       emit(SocialappDeletePostSuccessstate());
@@ -384,12 +384,12 @@ print(allpostdata);
   }
   //...........................................................................................
 
-
+  //to do:
   // Edit post
-  void EditMyPost({required String postid,required String postimage,required String text}) async{
+  void editMyPost({required String postid,required String postimage,required String text}) async{
     try{
       FirebaseFirestore.instance.collection('posts').doc(postid).update({
-        
+
       });
       emit(SocialappDeletePostSuccessstate());
     }catch(e){

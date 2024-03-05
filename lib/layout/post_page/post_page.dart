@@ -113,7 +113,7 @@ class _PostPageState extends State<PostPage> {
               child: Column(
 
                 children: [
-                  defaultPostcard(profileimage: widget.singlepost.image, name:  widget.singlepost.name, time:  timeago.format(DateTime.parse( widget.singlepost.datetime.toString())), text:  widget.singlepost.text, postImage:  widget.singlepost.postimage!.isEmpty? '':widget.singlepost.postimage, like:  '2', bio:  widget.singlepost.bio ?? "Empty Soul", imageslength:  1, context: context, stateofuse: "singlepage", uid:widget.singlepost.uId),
+                  defaultPostcard(profileimage: widget.singlepost.image, name:  widget.singlepost.name, time:  timeago.format(DateTime.parse( widget.singlepost.datetime.toString())), text:  widget.singlepost.text, postImage:  widget.singlepost.postimage!.isEmpty? '':widget.singlepost.postimage, like:  '2', bio:  widget.singlepost.bio ?? "Empty Soul", imageslength:  1, context: context, stateofuse: "singlepage", uid:widget.singlepost.uId, postid: widget.singlepost.postid!),
                   Column(
                     children: [
 

@@ -12,60 +12,85 @@ import 'package:ionicons/ionicons.dart';
 
 import '../cubit/socialcubit/socialstates.dart';
 import '../layout/policy_dialog/policy_dialog.dart';
-Widget termsandpolicy(context){
-  return  Align(
 
+Widget termsandpolicy(context) {
+  return Align(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("By creating an account, you are agreeing to our\n " ,style:GoogleFonts.poppins(fontSize: 11.sp,color: Colors.black,fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
+        Text(
+          "By creating an account, you are agreeing to our\n ",
+          style: GoogleFonts.poppins(
+              fontSize: 11.sp,
+              color: Colors.black,
+              fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
-                onTap:(){
-                  showDialog(context: context, builder: (context){
-                    return const PolicyDialog(mdFileName: 'terms_and_conditions.md',);
-                  });
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const PolicyDialog(
+                          mdFileName: 'terms_and_conditions.md',
+                        );
+                      });
                 },
-                child: Text("Terms & Conditions ",style:GoogleFonts.poppins(fontSize: 12.sp,color: Colors.blue,fontWeight: FontWeight.w700),textAlign:TextAlign.center)),
-            Text(" and ",style:GoogleFonts.poppins(fontSize: 12.sp,color: Colors.blue,fontWeight: FontWeight.w700),textAlign:TextAlign.center),
+                child: Text("Terms & Conditions ",
+                    style: GoogleFonts.poppins(
+                        fontSize: 12.sp,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center)),
+            Text(" and ",
+                style: GoogleFonts.poppins(
+                    fontSize: 12.sp,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w700),
+                textAlign: TextAlign.center),
             GestureDetector(
-                onTap:(){
-                  showDialog(context: context, builder: (context){
-                    return const PolicyDialog(mdFileName: 'privacy_policy.md',);
-                  });
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const PolicyDialog(
+                          mdFileName: 'privacy_policy.md',
+                        );
+                      });
                 },
-                child: Text("Privacy Policy! ",style:GoogleFonts.poppins(fontSize: 12.sp,color: Colors.blue,fontWeight: FontWeight.w700),textAlign:TextAlign.center)),
-
+                child: Text("Privacy Policy! ",
+                    style: GoogleFonts.poppins(
+                        fontSize: 12.sp,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center)),
           ],
         )
       ],
     ),
   );
 }
-Widget  buildchatitem(user, BuildContext context) {
-  return BlocConsumer<Socialappcubit,socialappstate>(
-    listener: (BuildContext context, Object? state) {
 
-    },
+Widget buildchatitem(user, BuildContext context) {
+  return BlocConsumer<Socialappcubit, socialappstate>(
+    listener: (BuildContext context, Object? state) {},
     builder: (BuildContext context, state) {
-
       return Padding(
-        padding:  EdgeInsets.all(5.r),
+        padding: EdgeInsets.all(5.r),
         child: InkWell(
-          onTap: (){
-            Navigator.pushNamed(context, '/messagescreen',arguments: {'user':user});
+          onTap: () {
+            Navigator.pushNamed(context, '/messagescreen',
+                arguments: {'user': user});
           },
           child: Container(
-
             padding: EdgeInsets.all(10.r),
             decoration: BoxDecoration(
-              boxShadow: const [
-
-              ],
+              boxShadow: const [],
               borderRadius: BorderRadius.circular(10.r),
               color: Colors.white,
             ),
@@ -82,17 +107,17 @@ Widget  buildchatitem(user, BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${user.name.toUpperCase()}',overflow: TextOverflow.ellipsis,
+                      '${user.name.toUpperCase()}',
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 16.0.sp,fontWeight: FontWeight.bold,color: Colors.black
-                      ),
+                          fontSize: 16.0.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
                     Text(
-                      '${Socialappcubit.get(context).usermodel?.bio}' ,
-                      style: TextStyle(
-                          fontSize: 16.0.sp,color: Colors.black
-                      ),overflow: TextOverflow.ellipsis,
-
+                      '${Socialappcubit.get(context).usermodel?.bio}',
+                      style: TextStyle(fontSize: 16.0.sp, color: Colors.black),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -102,17 +127,16 @@ Widget  buildchatitem(user, BuildContext context) {
         ),
       );
     },
-
-
   );
 }
+
 Widget defaultTextFormField({
   required TextEditingController controller,
   String? label,
   String? hint,
   required TextInputType type,
   bool? obscure,
-   IconData? icon,
+  IconData? icon,
   required Function(String) validate,
   required double radius,
   Function()? suffixPressed,
@@ -124,16 +148,11 @@ Widget defaultTextFormField({
       controller: controller,
       keyboardType: type,
       obscureText: obscure ?? false,
-
       decoration: InputDecoration(
-focusedBorder: const OutlineInputBorder(
-  borderSide: BorderSide(color: Colors.white)
-),
+        focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)),
         focusColor: Colors.white,
-        labelStyle: const TextStyle(
-          color: Colors.grey
-        ),
-
+        labelStyle: const TextStyle(color: Colors.grey),
         fillColor: Colors.black,
         labelText: label ?? '',
         hintText: hint ?? '',
@@ -141,7 +160,7 @@ focusedBorder: const OutlineInputBorder(
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: suffixPressed,
-                icon:Icon(suffix),
+                icon: Icon(suffix),
               )
             : null,
         border: OutlineInputBorder(
@@ -164,9 +183,8 @@ Widget defaultbottom({
       height: 40.0.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
-        border: Border.all(color:background),
+        border: Border.all(color: background),
         color: Colors.transparent,
-
       ),
       child: MaterialButton(
         height: height,
@@ -210,13 +228,13 @@ Widget defaultPostcard({
   required String? bio,
   required String? stateofuse,
   required String? uid,
-
-
-  required int? imageslength,required BuildContext context, int? index,
-   Function()? onpresscomment,
-})
-    {
-   return  Padding(
+  required int? imageslength,
+  required BuildContext context,
+  required String postid,
+  int? index,
+  Function()? onpresscomment,
+}) {
+  return Padding(
       padding: const EdgeInsets.all(20.0).w,
       child: Column(children: [
         Row(
@@ -237,66 +255,118 @@ Widget defaultPostcard({
               children: [
                 Text(
                   name!,
-                  style:
-                  TextStyle(
-                      fontSize: darktheme.textTheme.bodyMedium!.fontSize, fontWeight: FontWeight.bold, color:lighttheme.textTheme.bodyMedium!.color,),
+                  style: TextStyle(
+                    fontSize: darktheme.textTheme.bodyMedium!.fontSize,
+                    fontWeight: FontWeight.bold,
+                    color: lighttheme.textTheme.bodyMedium!.color,
+                  ),
                 ),
                 Text(
                   bio!,
                   style:
-                  TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w200),
+                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w200),
                 ),
               ],
             ),
             const Spacer(),
-            stateofuse == 'singlepage' ?    IconButton(
-                onPressed: () {
+             PopupMenuButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0.r)),
+                    color: Colors.white,
+                    icon: Icon(
+                      Icons.more_vert,
+                      size: 30.sp,
+                    ),
+                    itemBuilder: (BuildContext context) {
+                      if (StorageUtil.getString('uId') == uid) {
+                        return [
+                          PopupMenuItem(
+                            child: Text(
+                              "Report Post",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {},
+                          ),
+                          PopupMenuItem(
+                            child: Text(
+                              "Edit Post",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {},
+                          ),
+                          PopupMenuItem(
+                            child: Text(
+                              "Delete Post",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red),
+                            ),
+                            onTap: () {
+                              showDialog(context: context, builder: (context){
+                                return Center(
+                                  child: Container(
+                                    padding: EdgeInsets.all(10.r),
+                                    height: MediaQuery.of(context).size.height * 0.2,
+                                    width: MediaQuery.of(context).size.width * 0.8,
+                                    decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(10.r),
+                                      color: Colors.white,
 
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text('Delete My Post',style: GoogleFonts.poppins(fontSize:16.sp,fontWeight:FontWeight.bold,color:Colors.black),textAlign: TextAlign.start,),
+                                        Text('Are you really sure about this ?',style: GoogleFonts.poppins(fontSize:16.sp,fontWeight:FontWeight.w500,color:Colors.black),)
+                                        ,Row(
+                                          crossAxisAlignment:CrossAxisAlignment.end ,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            TextButton(onPressed: (){
+                                              Socialappcubit.get(context).deleteMyPost(postid: postid);
+                                              Navigator.pop(context);
+                                            }, child: Text('Yes',style: GoogleFonts.poppins(fontSize:12.sp,fontWeight:FontWeight.bold,color:Colors.red))),
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: Text('No',style: GoogleFonts.poppins(fontSize:12.sp,fontWeight:FontWeight.bold,color:Colors.black)))
 
-                },
-                icon: Icon(
-                  Icons.bookmark_border,
-                  size: 30.sp,
-                )):    PopupMenuButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0.r)
-              ),
-color: Colors.white,
-                icon: Icon(
-                   Icons.more_vert,
-                  size: 30.sp,
-                ), itemBuilder: (BuildContext context) {
-                  if(StorageUtil.getString('uId') == uid){
-                    return [
-                    PopupMenuItem(child: Text(
-                      "Report Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
-                    ),onTap: (){
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
 
-                    },),
-                     PopupMenuItem(child: Text(
-                      "Edit Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
-                    ),onTap: (){
-
-                    },),
-
-              PopupMenuItem(child: Text(
-              "Delete Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold,color:Colors.red),
-              ),onTap: (){
-
-              },),
-
-                  ];
-                  }else{
-                    return [
-                      PopupMenuItem(child: Text(
-                        "Report Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
-                      ),onTap: (){
-
-                      },),
-                    ];
-                  }
-            },),
-
+                            },
+                          ),
+                        ];
+                      } else {
+                        return [
+                          PopupMenuItem(
+                            child: Text(
+                              "Report Post",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {},
+                          ),
+                          PopupMenuItem(
+                            child: Text(
+                              "Bookmark Post",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {},
+                          ),
+                        ];
+                      }
+                    },
+                  ),
           ],
         ),
         SizedBox(
@@ -308,30 +378,34 @@ color: Colors.white,
             child: FractionallySizedBox(
               widthFactor: 1,
               heightFactor: 1,
-              child: postImage!.isNotEmpty ? defaultImageContainer(
-                  image: postImage,
-                  width: double.infinity,
-                  height: double.infinity,
-                  radius: 10.0.r) : Center(
-                child: Container(
-                  padding: EdgeInsets.all(10.0.r),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(10.0.r)
-                  ),
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Center(
-                    child: Text(
-                      text!
-                      ,
-                      style: TextStyle(
-                          fontSize: darktheme.textTheme.bodySmall!.fontSize, fontWeight: FontWeight.bold, color:lighttheme.textTheme.bodyLarge!.color),
+              child: postImage!.isNotEmpty
+                  ? defaultImageContainer(
+                      image: postImage,
+                      width: double.infinity,
+                      height: double.infinity,
+                      radius: 10.0.r)
+                  : Center(
+                      child: Container(
+                        padding: EdgeInsets.all(10.0.r),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(10.0.r)),
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Center(
+                          child: Text(
+                            text!,
+                            style: TextStyle(
+                                fontSize:
+                                    darktheme.textTheme.bodySmall!.fontSize,
+                                fontWeight: FontWeight.bold,
+                                color: lighttheme.textTheme.bodyLarge!.color),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),)
-          /*
+            )
+            /*
   * ListView.separated(
 scrollDirection: Axis.horizontal,
 itemBuilder: (context,index)=> defaultImageContainer(image: postImage, width:325.0.w , height: 120.h, radius: 10.0.r),
@@ -339,86 +413,83 @@ separatorBuilder: (context,index)=>SizedBox(width: 15.w,),
 itemCount: imageslength!,
 ),
   * */
-        ),
+            ),
         Column(
           children: [
-            stateofuse == 'singlepage' ? Container() :   Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Socialappcubit.get(context).likepost(Socialappcubit
-                          .get(context)
-                          .postsid[index!]);
-                    },
-                    icon: Icon(
-                      Ionicons.heart
-                      ,
-                      color: Colors.red,
-                      size: 30.sp,
-                    )
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                IconButton(
-                    onPressed: onpresscomment,
-                    icon: Icon(
-                      Ionicons.chatbubble_outline,
-
-                      size: 30.sp,
-                    )),
-                SizedBox(
-                  width: 10.w,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Ionicons.arrow_redo_outline,
-                      size: 30.sp,
-
-                    )),
-                const Spacer(),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Ionicons.bookmark_outline
-                      ,
-                      size: 30.sp,
-                    )),
-              ],
-            ),
-            stateofuse == 'singlepage' ? Container() :     Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${like!} Likes',
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
-              ),
-            ),
+            stateofuse == 'singlepage'
+                ? Container()
+                : Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Socialappcubit.get(context).likepost(
+                                Socialappcubit.get(context).postsid[index!]);
+                          },
+                          icon: Icon(
+                            Ionicons.heart,
+                            color: Colors.red,
+                            size: 30.sp,
+                          )),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      IconButton(
+                          onPressed: onpresscomment,
+                          icon: Icon(
+                            Ionicons.chatbubble_outline,
+                            size: 30.sp,
+                          )),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Ionicons.arrow_redo_outline,
+                            size: 30.sp,
+                          )),
+                      const Spacer(),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Ionicons.bookmark_outline,
+                            size: 30.sp,
+                          )),
+                    ],
+                  ),
+            stateofuse == 'singlepage'
+                ? Container()
+                : Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '${like!} Likes',
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.w100),
+                    ),
+                  ),
             Align(
               alignment: Alignment.centerLeft,
               child: GestureDetector(
-                onTap: (){
-
-
-                },
+                onTap: () {},
                 child: Text(
-                    text!,
-                    overflow:TextOverflow.visible,
-                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
-                  ),
+                  text!,
+                  overflow: TextOverflow.visible,
+                  style:
+                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+                ),
               ),
             ),
-
             Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   time!,
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
+                  style:
+                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w100),
                 )),
           ],
         ),
       ]));
-    }
+}
 
 Widget defaultappbar({
   required BuildContext? context,
