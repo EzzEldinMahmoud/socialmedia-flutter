@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chatapp/components/apptheme.dart';
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
+import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -208,6 +209,7 @@ Widget defaultPostcard({
   required String? like,
   required String? bio,
   required String? stateofuse,
+  required String? uid,
 
 
   required int? imageslength,required BuildContext context, int? index,
@@ -256,18 +258,22 @@ Widget defaultPostcard({
                   Icons.bookmark_border,
                   size: 30.sp,
                 )):    PopupMenuButton(
-
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0.r)
+              ),
+color: Colors.white,
                 icon: Icon(
                    Icons.more_vert,
                   size: 30.sp,
                 ), itemBuilder: (BuildContext context) {
-                  return [
+                  if(StorageUtil.getString('uId') == uid){
+                    return [
                     PopupMenuItem(child: Text(
                       "Report Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
                     ),onTap: (){
 
                     },),
-                    PopupMenuItem(child: Text(
+                     PopupMenuItem(child: Text(
                       "Edit Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
                     ),onTap: (){
 
@@ -276,10 +282,19 @@ Widget defaultPostcard({
               PopupMenuItem(child: Text(
               "Delete Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold,color:Colors.red),
               ),onTap: (){
-                  
+
               },),
 
                   ];
+                  }else{
+                    return [
+                      PopupMenuItem(child: Text(
+                        "Report Post",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.bold),
+                      ),onTap: (){
+
+                      },),
+                    ];
+                  }
             },),
 
           ],

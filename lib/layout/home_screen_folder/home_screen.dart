@@ -2,6 +2,7 @@ import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
 import 'package:chatapp/models/user_model.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class Homescreen extends StatefulWidget {
 }
 
 var controller = TextEditingController();
-List? comments;
+ List? comments;
 List? posts;
 UserModel? user;
 
@@ -83,18 +84,91 @@ class _HomescreenState extends State<Homescreen> {
                                 .getcomments(postid: cubit.postsid[index]);
 
                             showModalBottomSheet(
+                              isScrollControlled:true,
+                              enableDrag: true,
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
+                                borderRadius: BorderRadius.circular(30.0.r),
                               ),
                               backgroundColor: Colors.white,
-                              constraints: BoxConstraints(
-                                maxHeight:
-                                    MediaQuery.of(context).size.height * 1,
-                                minHeight: 0.8,
-                              ),
+
                               builder: (BuildContext context) {
                                 return Scaffold(
+                                  bottomNavigationBar:  ConditionalBuilder(
+                                    condition: user != null,
+                                    builder:
+                                        (BuildContext context) {
+                                      return SizedBox(
+                                        height: 60.h,
+                                        width: 325.w,
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 45.w,
+                                              height: 45.h,
+                                              child: CircleAvatar(
+                                                radius: 30.r,
+                                                backgroundImage:
+                                                NetworkImage(
+                                                    '${user?.image}'),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            Expanded(
+                                              child:
+                                              TextFormField(
+                                                controller:
+                                                controller,
+                                                keyboardType:
+                                                TextInputType
+                                                    .text,
+                                                decoration:
+                                                const InputDecoration(
+                                                  labelText:
+                                                  'Write a comment',
+                                                  hintText:
+                                                  'Write a comment',
+                                                ),
+                                              ),
+                                            ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  Socialappcubit.get(context).createcomment(
+                                                      datetime: DateTime
+                                                          .now()
+                                                          .toString(),
+                                                      text: controller
+                                                          .text,
+                                                      postid: cubit
+                                                          .postsid[
+                                                      index]);
+                                                  Socialappcubit.get(context)
+                                                      .getcomments(postid: cubit.postsid[index]);
+                                                  controller
+                                                      .clear();
+                                                },
+                                                icon: Icon(
+                                                  Ionicons.send,
+                                                  size: 30.sp,
+                                                )),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    fallback:
+                                        (BuildContext context) {
+                                      return Center(
+                                          child: Text(
+                                            "no comments for now",
+                                            style: TextStyle(
+                                                fontSize: 18.sp,
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ));
+                                    },
+                                  ),
                                   backgroundColor: Colors.white,
                                   body: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -131,145 +205,70 @@ class _HomescreenState extends State<Homescreen> {
                                                 const Divider(
                                                   thickness: 1,
                                                 ),
-                                                Expanded(
+                                                SizedBox(
+                                                  height: MediaQuery.of(context).size.height * 0.8 ,
+                                                  width: MediaQuery.of(context).size.width * 1,
                                                   child: ConditionalBuilder(
-                                                    condition: state is SocialappGETCOMMENTSSuccessstate && comments!.isNotEmpty,
+                                                    condition: Socialappcubit.get(context).comments.isNotEmpty,
                                                     builder:
                                                         (BuildContext context) {
-                                                      return SingleChildScrollView(
-                                                        child:
-                                                            ListView.separated(
-                                                          itemCount:
-                                                              comments!.length,
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int index) {
-                                                            return ListTile(
-                                                              leading:
-                                                                  CircleAvatar(
-                                                                radius: 30.r,
-                                                                backgroundImage:
-                                                                    NetworkImage(
-                                                                        '${comments?[index].image}'),
-                                                              ),
-                                                              title: Text(
-                                                                  '${comments?[index].name}'),
-                                                              subtitle: Text(
-                                                                  '${comments?[index].text}'),
-                                                              trailing:
-                                                                  IconButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      icon:
-                                                                          Icon(
-                                                                        Ionicons
-                                                                            .heart_outline,
-                                                                        size: 30
-                                                                            .sp,
-                                                                      )),
-                                                            );
-                                                          },
-                                                          separatorBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int index) {
-                                                            return SizedBox(
-                                                              height: 10.h,
-                                                            );
-                                                          },
-                                                          shrinkWrap: true,
-                                                        ),
+                                                      return ListView.separated(
+                                                        itemCount:
+                                                        Socialappcubit.get(context).comments.length,
+                                                        itemBuilder:
+                                                            (BuildContext
+                                                        context,
+                                                            int index) {
+                                                          return ListTile(
+                                                            leading:
+                                                            CircleAvatar(
+                                                              radius: 30.r,
+                                                              backgroundImage:
+                                                              NetworkImage(
+                                                                  '${Socialappcubit.get(context).comments[index].image}'),
+                                                            ),
+                                                            title: Text(
+                                                                '${Socialappcubit.get(context).comments[index].name}'),
+                                                            subtitle: Text(
+                                                                '${Socialappcubit.get(context).comments[index].text}'),
+                                                            trailing:
+                                                            IconButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                icon:
+                                                                Icon(
+                                                                  Ionicons
+                                                                      .heart_outline,
+                                                                  size: 30
+                                                                      .sp,
+                                                                )),
+                                                          );
+                                                        },
+                                                        separatorBuilder:
+                                                            (BuildContext
+                                                        context,
+                                                            int index) {
+                                                          return SizedBox(
+                                                            height: 10.h,
+                                                          );
+                                                        },
+                                                        shrinkWrap: true,
                                                       );
                                                     },
                                                     fallback:
                                                         (BuildContext context) {
                                                       return  Align(
                                                         alignment:
-                                                            Alignment.center,
+                                                        Alignment.center,
                                                         child: Center(
                                                           child:
-                                                              Text("No comments for this post",style: GoogleFonts.poppins(color: Colors.black,fontSize: 18.sp),),
+                                                          Text("No comments for this post",style: GoogleFonts.poppins(color: Colors.black,fontSize: 18.sp),),
                                                         ),
                                                       );
                                                     },
                                                   ),
                                                 ),
-                                                ConditionalBuilder(
-                                                  condition: user != null,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return SizedBox(
-                                                      height: 60.h,
-                                                      width: 325.w,
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 45.w,
-                                                            height: 45.h,
-                                                            child: CircleAvatar(
-                                                              radius: 30.r,
-                                                              backgroundImage:
-                                                                  NetworkImage(
-                                                                      '${user?.image}'),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 10.w,
-                                                          ),
-                                                          Expanded(
-                                                            child:
-                                                                TextFormField(
-                                                              controller:
-                                                                  controller,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .text,
-                                                              decoration:
-                                                                  const InputDecoration(
-                                                                labelText:
-                                                                    'Write a comment',
-                                                                hintText:
-                                                                    'Write a comment',
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          IconButton(
-                                                              onPressed: () {
-                                                                Socialappcubit.get(context).createcomment(
-                                                                    datetime: DateTime
-                                                                            .now()
-                                                                        .toString(),
-                                                                    text: controller
-                                                                        .text,
-                                                                    postid: cubit
-                                                                            .postsid[
-                                                                        index]);
-                                                                Socialappcubit.get(context)
-                                                                    .getcomments(postid: cubit.postsid[index]);
-                                                                controller
-                                                                    .clear();
-                                                              },
-                                                              icon: Icon(
-                                                                Ionicons.send,
-                                                                size: 30.sp,
-                                                              )),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                  fallback:
-                                                      (BuildContext context) {
-                                                    return Center(
-                                                        child: Text(
-                                                      "no comments for now",
-                                                      style: TextStyle(
-                                                          fontSize: 18.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ));
-                                                  },
-                                                ),
+
                                               ],
                                             ),
                                           ),
@@ -279,7 +278,7 @@ class _HomescreenState extends State<Homescreen> {
                               },
                               context: context,
                             );
-                          }, bio:Socialappcubit.get(context).posts[index].bio ?? "Empty Soul", stateofuse: '' );
+                          }, bio:Socialappcubit.get(context).posts[index].bio ?? "Empty Soul", stateofuse: '', uid: Socialappcubit.get(context).posts[index].uId );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(

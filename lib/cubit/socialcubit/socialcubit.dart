@@ -330,8 +330,6 @@ print(allpostdata);
     });
   }
   //...........................................................................................
-
-
   // chat system function
   List<MessageModel> lastmessages = [];
   void getlastmessages({required String receiverId}){
@@ -370,6 +368,34 @@ print(allpostdata);
     }).catchError((error){
       emit(SocialappSENDMessagesSERRORstate(error.toString()));
     });
+  }
+//...........................................................................................
+
+
+  // delete post
+  void DeleteMyPost({required String postid}) async{
+    try{
+      FirebaseFirestore.instance.collection('posts').doc(postid).delete();
+      emit(SocialappDeletePostSuccessstate());
+    }catch(e){
+      emit(SocialappDeletePostERRORstate(e.toString()));
+    }
+
+  }
+  //...........................................................................................
+
+
+  // Edit post
+  void EditMyPost({required String postid,required String postimage,required String text}) async{
+    try{
+      FirebaseFirestore.instance.collection('posts').doc(postid).update({
+        
+      });
+      emit(SocialappDeletePostSuccessstate());
+    }catch(e){
+      emit(SocialappDeletePostERRORstate(e.toString()));
+    }
+
   }
 
 //...........................................................................................

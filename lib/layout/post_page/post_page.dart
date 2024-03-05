@@ -24,13 +24,10 @@ class _PostPageState extends State<PostPage> {
   var controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print(widget.singlepost.postid);
+    Socialappcubit.get(context).getcomments(postid: widget.singlepost.postid);
     return  BlocConsumer<Socialappcubit,socialappstate>(
      listener: (BuildContext context, state) {
-       if (state is SocialappGETCOMMENTSSuccessstate) {
-         comments = state.commentmodel;
 
-       }
      },
       builder: (context,state) {
         return Scaffold(
@@ -116,17 +113,17 @@ class _PostPageState extends State<PostPage> {
               child: Column(
 
                 children: [
-                  defaultPostcard(profileimage: widget.singlepost.image, name:  widget.singlepost.name, time:  timeago.format(DateTime.parse( widget.singlepost.datetime.toString())), text:  widget.singlepost.text, postImage:  widget.singlepost.postimage!.isEmpty? '':widget.singlepost.postimage, like:  '2', bio:  widget.singlepost.bio ?? "Empty Soul", imageslength:  1, context: context, stateofuse: "singlepage"),
+                  defaultPostcard(profileimage: widget.singlepost.image, name:  widget.singlepost.name, time:  timeago.format(DateTime.parse( widget.singlepost.datetime.toString())), text:  widget.singlepost.text, postImage:  widget.singlepost.postimage!.isEmpty? '':widget.singlepost.postimage, like:  '2', bio:  widget.singlepost.bio ?? "Empty Soul", imageslength:  1, context: context, stateofuse: "singlepage", uid:widget.singlepost.uId),
                   Column(
                     children: [
 
                       ConditionalBuilder(
-                        condition:  comments!.isNotEmpty,
+                        condition:  Socialappcubit.get(context).comments.isNotEmpty,
                         builder:
                             (BuildContext context) {
                           return ListView.separated(
                             itemCount:
-                            comments!.length,
+                            Socialappcubit.get(context).comments.length,
                             itemBuilder:
                                 (BuildContext
                             context,
@@ -137,12 +134,12 @@ class _PostPageState extends State<PostPage> {
                                   radius: 30.r,
                                   backgroundImage:
                                   NetworkImage(
-                                      '${comments?[index].image}'),
+                                      '${Socialappcubit.get(context).comments[index].image}'),
                                 ),
                                 title: Text(
-                                    '${comments?[index].name}'),
+                                    '${Socialappcubit.get(context).comments[index].name}',overflow: TextOverflow.ellipsis,),
                                 subtitle: Text(
-                                    '${comments?[index].text}'),
+                                    '${Socialappcubit.get(context).comments[index].text}'),
                                 trailing:
                                 IconButton(
                                     onPressed:
