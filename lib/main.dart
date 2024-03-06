@@ -1,3 +1,4 @@
+import 'package:chatapp/layout/forgot_password/forgotten_password_page.dart';
 import 'package:chatapp/layout/nav_screen/bottom_navigation_screen.dart';
 import 'package:chatapp/layout/register_screen/register_screen.dart';
 import 'package:chatapp/layout/Search_screen/search_screen.dart';
@@ -71,6 +72,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/search': (BuildContext context) => const SearchPage(),
   '/messagescreen': (BuildContext context) => const Messagesscreen(),
   '/welcome': (BuildContext context) => const WelcomePage(),
+  '/resetpassword': (BuildContext context) => const PasswordReset(),
 
 
 

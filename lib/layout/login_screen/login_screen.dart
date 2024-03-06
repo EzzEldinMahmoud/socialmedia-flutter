@@ -126,7 +126,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                             alignment: AlignmentDirectional.centerEnd,
                             child: GestureDetector(
                                 onTap: (){
-
+Navigator.pushNamed(context, '/resetpassword');
                                 },
                                 child: Text("Forgot password ?",style: GoogleFonts.poppins(color:Colors.blue),)),
                           )
