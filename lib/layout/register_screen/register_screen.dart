@@ -156,8 +156,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           defaultTextFormField(
                               controller: phonefield,
-                              label: "phone number",
-                              hint: '01115216589',
+                              label: "Phone Number",
+                              hint: 'Phone Number',
                               type: TextInputType.phone,
                               obscure: false,
                               icon: Icons.phone_android_outlined,

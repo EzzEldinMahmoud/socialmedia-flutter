@@ -1,6 +1,8 @@
 
+
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
+import 'package:chatapp/models/user_model.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +13,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:timeago/timeago.dart' as timeago;
 class Messagesscreen extends StatefulWidget {
 
-   const Messagesscreen({super.key, });
-
+   const Messagesscreen({super.key, required this.user, });
+final UserModel user;
 
   @override
   State<Messagesscreen> createState() => _MessagesscreenState();
@@ -22,11 +24,9 @@ class _MessagesscreenState extends State<Messagesscreen> {
   var message = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
-    final user = arguments['user'];
     return Builder(
       builder: (context) {
-        Socialappcubit.get(context).getmessages(receiverId: user.uId);
+        Socialappcubit.get(context).getmessages(receiverId: widget.user.uId!);
         return BlocConsumer<Socialappcubit,socialappstate>(listener: (context, state){
 
         },builder: (context,state){
@@ -39,12 +39,12 @@ class _MessagesscreenState extends State<Messagesscreen> {
                   children: [
 
                     CircleAvatar(
-                      backgroundImage: NetworkImage(user.image),
+                      backgroundImage: NetworkImage(widget.user.image!),
                     ),
                      SizedBox(width: 5.0.w,),
                     Expanded(
                       flex: 1,
-                      child: Text(user.name, overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20.0),
+                      child: Text(widget.user.name!, overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20.0),
 
                       ),
                     ),
@@ -143,7 +143,7 @@ class _MessagesscreenState extends State<Messagesscreen> {
 
                             onPressed: (){
 
-                              Socialappcubit.get(context).sendmessage(receiverId: user.uId, dateTime: DateTime.now().toString(), text: message.text);
+                              Socialappcubit.get(context).sendmessage(receiverId: widget.user.uId!, dateTime: DateTime.now().toString(), text: message.text);
                            message.clear();
                             },
                             icon: const Icon(Icons.send,color: Colors.white,),
@@ -189,31 +189,41 @@ class _MessagesscreenState extends State<Messagesscreen> {
       ),
     ),
   );
-  Widget buildmessageitem(message, String? datetime) => Align(
-    alignment: AlignmentDirectional.centerStart,
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
+  Widget buildmessageitem(message, String? datetime)
+      {
 
-        padding: EdgeInsets.symmetric(horizontal: 15.0.w,vertical: 10.0.h),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadiusDirectional.only(
-            topEnd: Radius.circular(10.0.r),
-            bottomEnd: Radius.circular(10.0.r),
-            bottomStart: Radius.circular(10.0.r),
+        return Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding:
+                  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.0.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadiusDirectional.only(
+                  topEnd: Radius.circular(10.0.r),
+                  bottomEnd: Radius.circular(10.0.r),
+                  bottomStart: Radius.circular(10.0.r),
+                ),
+                color: Colors.grey[300],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    message,
+                    style: GoogleFonts.poppins(
+                        color: Colors.black, fontSize: 14.sp),
+                  ),
+                  Text(
+                    timeago.format(DateTime.parse(datetime!)),
+                    style: GoogleFonts.poppins(
+                        color: Colors.black, fontSize: 8.sp),
+                  ),
+                ],
+              ),
+            ),
           ),
-          color: Colors.grey[300],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start
-          ,
-          children: [
-            Text(message,style: GoogleFonts.poppins(color: Colors.black,fontSize: 14.sp),),
-            Text(timeago.format(DateTime.parse(datetime!
-            )),style: GoogleFonts.poppins(color: Colors.black,fontSize: 8.sp),),
-          ],
-        ),
-      ),
-    ),
-  );
+        );
+      }
 }

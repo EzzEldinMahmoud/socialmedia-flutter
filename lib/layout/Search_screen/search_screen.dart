@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../components/components.dart';
+import '../../cubit/socialcubit/socialcubit.dart';
 import '../chat_screen/chat_screen.dart';
 
 class SearchPage extends StatefulWidget {

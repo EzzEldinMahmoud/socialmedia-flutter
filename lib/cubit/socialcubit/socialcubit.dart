@@ -10,7 +10,7 @@ import 'package:chatapp/models/post_model.dart';
 import 'package:chatapp/models/user_model.dart';
 import 'package:chatapp/shared/remote/diohelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -88,6 +88,16 @@ class Socialappcubit extends Cubit<socialappstate> {
     });
   }
   //...........................................................................................
+  //send reset password links
+  void resetPassword({required String email}){
+    FirebaseAuth.instance.sendPasswordResetEmail(email: email).then((value) => {
+      emit(SocialappSendResetEmailSuccessState())
+    }).catchError((e){
+      emit(SocialappSendResetEmailerrorstate(e.toString()));
+      return e;
+    });
+  }
+  //...........................................................................................
   //send  Reports
   void sendReport({
     required String username,
@@ -118,6 +128,7 @@ class Socialappcubit extends Cubit<socialappstate> {
     emit(SocialappSendEmailSuccessState())
     }).catchError((e){
       emit(SocialappSendEmailerrorstate(e.toString()));
+      return e;
     });
   }
 //...........................................................................................
@@ -357,24 +368,25 @@ print(allpostdata);
   void getmessages({required String receiverId}){
     FirebaseFirestore.instance.collection('users').doc(uid).collection('chats').doc(receiverId).collection('messages').orderBy('datetime').snapshots().listen((event) {
       messages = [];
-      event.docs.forEach((element) {
+      for (var element in event.docs) {
             messages.add(MessageModel.fromJson(element.data())) ;
-      });
+      }
       emit(SocialappGETMessagesSSuccessstate());
 
     });
   }
   //...........................................................................................
-  // chat system function
-  List<MessageModel> lastmessages = [];
-  void getlastmessages({required String receiverId}){
-    FirebaseFirestore.instance.collection('users').doc(uid).collection('chats').doc(receiverId).collection('messages').orderBy('datetime').snapshots().listen((event) {
-      messages = [];
-      event.docs.forEach((element) {
-        messages.add(MessageModel.fromJson(element.data())) ;
-      });
-      emit(SocialappGETMessagesSSuccessstate());
+  // Last message function
+  late MessageModel lastmessage ;
+  void getLastMessages({required String receiverId}){
+    FirebaseFirestore.instance.collection('users').doc(uid).collection('chats').doc(receiverId).collection('messages').orderBy('datetime').get().then((value) => {
 
+    lastmessage =  MessageModel.fromJson(value.docs.last.data()),
+
+      emit(SocialappGETLastMessagesSSuccessstate(lastmessage))
+    }).catchError((e){
+      emit(SocialappGETLastMessagesSERRORstate(e.toString()));
+return e;
     });
   }
   //...........................................................................................
@@ -422,9 +434,10 @@ print(allpostdata);
   //to do:
   // Edit post
   void editMyPost({required String postid,required String postimage,required String text}) async{
+
     try{
       FirebaseFirestore.instance.collection('posts').doc(postid).update({
-
+postimage:postimage,text:text
       });
       emit(SocialappDeletePostSuccessstate());
     }catch(e){

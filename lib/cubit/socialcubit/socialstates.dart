@@ -196,6 +196,7 @@ class SocialappGETMessagesSERRORstate extends socialappstate {
 class SocialappGETLastMessagesSLOADINGstate extends socialappstate {}
 
 class SocialappGETLastMessagesSSuccessstate extends socialappstate {
+  SocialappGETLastMessagesSSuccessstate(MessageModel lastmessage);
 
 }
 
@@ -236,6 +237,15 @@ class SocialappSendEmailSuccessState extends socialappstate {
 
 class SocialappSendEmailerrorstate extends socialappstate {
   SocialappSendEmailerrorstate(String string);
+}
+//...........................................................................................
+//send  reports
+class SocialappSendResetEmailSuccessState extends socialappstate {
+
+}
+
+class SocialappSendResetEmailerrorstate extends socialappstate {
+  SocialappSendResetEmailerrorstate(String string);
 }
 //...........................................................................................
 //delete posts

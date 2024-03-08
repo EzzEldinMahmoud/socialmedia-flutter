@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chatapp/components/apptheme.dart';
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
+import 'package:chatapp/layout/Messages_screen/messages_screen.dart';
 import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,6 +79,9 @@ Widget termsandpolicy(context) {
 }
 
 Widget buildchatitem(user, BuildContext context) {
+
+
+
   return BlocConsumer<Socialappcubit, socialappstate>(
     listener: (BuildContext context, Object? state) {},
     builder: (BuildContext context, state) {
@@ -85,8 +89,9 @@ Widget buildchatitem(user, BuildContext context) {
         padding: EdgeInsets.all(5.r),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/messagescreen',
-                arguments: {'user': user});
+            Navigator.push(context,MaterialPageRoute(builder: (context){
+              return Messagesscreen(user: user);
+            }));
           },
           child: Container(
             padding: EdgeInsets.all(10.r),
@@ -116,7 +121,7 @@ Widget buildchatitem(user, BuildContext context) {
                           color: Colors.black),
                     ),
                     Text(
-                      '${Socialappcubit.get(context).usermodel?.bio}',
+                      user.bio.toString().isEmpty ?"Empty Soul":user.bio.toString(),
                       style: TextStyle(fontSize: 16.0.sp, color: Colors.black),
                       overflow: TextOverflow.ellipsis,
                     ),

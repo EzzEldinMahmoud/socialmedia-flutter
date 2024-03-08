@@ -70,7 +70,6 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/createpost': (BuildContext context) => const CREATEPOST(),
   '/chat': (BuildContext context) => const CHATSCREEN(),
   '/search': (BuildContext context) => const SearchPage(),
-  '/messagescreen': (BuildContext context) => const Messagesscreen(),
   '/welcome': (BuildContext context) => const WelcomePage(),
   '/resetpassword': (BuildContext context) => const PasswordReset(),
 
