@@ -1,4 +1,4 @@
-package com.example.chatapp
+package com.close.closeworld;
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -398,7 +398,7 @@ Widget defaultPostcard({
             child: FractionallySizedBox(
               widthFactor: 1,
               heightFactor: 1,
-              child: postImage!.isNotEmpty
+              child: postImage!.length > 2
                   ? defaultImageContainer(
                       image: postImage,
                       width: double.infinity,

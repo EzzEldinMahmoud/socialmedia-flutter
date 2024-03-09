@@ -83,7 +83,7 @@ class _LOGINSCREENState extends State<LOGINSCREEN> {
                           defaultTextFormField(
                               controller: emailfield,
                               label: "Email Address",
-                              hint: 'example@hint.com',
+                              hint: 'closeworld@hint.com',
                               type: TextInputType.emailAddress,
                               obscure: false,
                               icon: Icons.email_outlined,

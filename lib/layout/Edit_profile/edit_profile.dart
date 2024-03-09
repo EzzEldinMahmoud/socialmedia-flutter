@@ -3,6 +3,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../cubit/socialcubit/socialcubit.dart';
 import '../../cubit/socialcubit/socialstates.dart';
@@ -101,7 +102,7 @@ var biocontroller = TextEditingController();
                                     phone: cubit?.phone ?? phonecontroller.text,
                                     bio: cubit?.bio ?? biocontroller.text);
                               },
-                              child: const Text('Change Profile Image'),
+                              child:  Text('Change Profile Image',style: GoogleFonts.poppins(color:Colors.black),),
                             ),
                             SizedBox(
                               height: 20.h,

@@ -195,6 +195,7 @@ class Socialappcubit extends Cubit<socialappstate> {
           bio: bio,
           image: profileimageurl,
         );
+
       }).catchError((e) {
         emit(SocialappUPLOADPROFILEIMAGEERRORstate(e.toString()));
       });
@@ -253,7 +254,7 @@ class Socialappcubit extends Cubit<socialappstate> {
     PostModel postmodel = PostModel(
         name: usermodel?.name,
         datetime: datetime,
-        postimage: postimage ?? ' ',
+        postimage: postimage ?? '',
         uId: usermodel?.uId,
         image: usermodel?.image,
         text: text, bio:  usermodel?.bio);

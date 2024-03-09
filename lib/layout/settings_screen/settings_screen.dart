@@ -107,7 +107,9 @@ class _SettingPageState extends State<SettingPage> {
                           Text("Bookmarks",style: GoogleFonts.poppins(fontSize:14.sp,fontWeight:FontWeight.w500,color:Colors.black))
                         ],
 
-                      ),IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))
+                      ),IconButton(onPressed: (){
+
+                      }, icon: Icon(Icons.arrow_forward_ios))
                     ],
                   ),
                 ),

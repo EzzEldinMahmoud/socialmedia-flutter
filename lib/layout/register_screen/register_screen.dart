@@ -99,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           defaultTextFormField(
                               controller: username,
                               label: "User Name",
-                              hint: 'example',
+                              hint: 'closeworld',
                               type: TextInputType.name,
                               obscure: false,
                               icon: Icons.person_outline,
@@ -116,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           defaultTextFormField(
                               controller: emailfield,
                               label: "Email Address",
-                              hint: 'example@hint.com',
+                              hint: 'closeworld@hint.com',
                               type: TextInputType.emailAddress,
                               obscure: false,
                               icon: Icons.email_outlined,

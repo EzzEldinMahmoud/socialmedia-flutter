@@ -15,14 +15,14 @@ class appcubit extends Cubit<appstate> {
 
 
 
-//get example
+//get closeworld
   Future gethome({required String }) async {
     emit(apploadingstate());
 
   }
 
 
-  //post example
+  //post closeworld
   Future login({required String email , required String password }) async {
     emit(appLOGINloadingstate());
 FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) {

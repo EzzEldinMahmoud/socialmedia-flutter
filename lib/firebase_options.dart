@@ -70,7 +70,7 @@ class DefaultFirebaseOptions {
     projectId: 'closeworld-4b365',
     databaseURL: 'https://closeworld-4b365-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'closeworld-4b365.appspot.com',
-    iosBundleId: 'com.example.chatapp',
+    iosBundleId: 'com.closeworld.chatapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -80,6 +80,6 @@ class DefaultFirebaseOptions {
     projectId: 'closeworld-4b365',
     databaseURL: 'https://closeworld-4b365-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'closeworld-4b365.appspot.com',
-    iosBundleId: 'com.example.chatapp.RunnerTests',
+    iosBundleId: 'com.closeworld.chatapp.RunnerTests',
   );
 }
