@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chatapp/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,21 +81,8 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              if (Socialappcubit.get(context).postimagehere ==
-                                  null) {
-                                Socialappcubit.get(context).createpost(
-                                    datetime: '${DateTime.now()}',
-                                    postimage: '',
-                                    text: textcontroller.text);
-
-                              } else {
-                                Socialappcubit.get(context).uploadPostImage(
-                                    datetime: '${DateTime.now()}',
-                                    text: textcontroller.text);
-
-                              }
-                            }
+Socialappcubit.get(context).createpost(datetime: '${DateTime.now()}', postimage: Socialappcubit.get(context)
+    .postimagehere , text: textcontroller.text ?? '');
                           },
                           child: Text(
                             'Post',
@@ -235,9 +224,9 @@ class _CREATEPOSTState extends State<CREATEPOST> {
                                     child: Socialappcubit.get(context)
                                                 .postimagehere !=
                                             null
-                                        ? Image.file(
-                                            Socialappcubit.get(context)
-                                                .postimagehere!,
+                                        ? Image.memory(
+                                            base64Decode(Socialappcubit.get(context)
+                                                .postimagehere!),
                                             fit: BoxFit.cover,
                                             width: double.infinity,
                                             height: 200.h,

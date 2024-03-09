@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:chatapp/components/apptheme.dart';
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/layout/Messages_screen/messages_screen.dart';
+import 'package:chatapp/layout/edit_user_post/edit_user_post.dart';
 import 'package:chatapp/shared/local/cachehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -148,6 +150,7 @@ Widget defaultTextFormField({
   Function()? suffixPressed,
   IconData? suffix,
   String? initialValue,
+
 }) =>
     TextFormField(
 
@@ -208,24 +211,20 @@ Widget defaultbottom({
 
 Widget defaultImageContainer({
   String? image,
-  File? imagefile,
+  String? imagefile,
   required double? width,
   required double? height,
   required double? radius,
-}) =>
-    Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius!),
-        image: DecorationImage(
-          image: image!.isEmpty
-              ? Image.file(imagefile!) as ImageProvider<Object>
-              : NetworkImage(image),
+})
+    {
+      return Image(
+          height: height,
+          width: width,
           fit: BoxFit.cover,
-        ),
-      ),
-    );
+          image:  image!.isEmpty
+          ? Image.memory(base64Decode(image)).image
+          : image.contains('http')  ?  NetworkImage(image): Image.memory(base64Decode(image)).image);
+    }
 Widget defaultPostcard({
   required String? profileimage,
   required String? name,
@@ -306,7 +305,11 @@ Widget defaultPostcard({
                               style: GoogleFonts.poppins(
                                   fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return EditUserPost(text: text!, postimage: postImage!, postid: postid,);
+                              }));
+                            },
                           ),
                           PopupMenuItem(
                             child: Text(
@@ -400,7 +403,7 @@ Widget defaultPostcard({
                       image: postImage,
                       width: double.infinity,
                       height: double.infinity,
-                      radius: 10.0.r)
+                      radius: 10.0.r,imagefile: postImage)
                   : Center(
                       child: Container(
                         padding: EdgeInsets.all(10.0.r),

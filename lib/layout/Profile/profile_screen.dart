@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chatapp/cubit/socialcubit/socialcubit.dart';
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
 import 'package:chatapp/layout/post_page/post_page.dart';
@@ -121,7 +123,7 @@ class Settingscreen extends StatelessWidget {
                           child:  cubit.uId == postcubit.userposts[index].uId ? SizedBox(
                             height: MediaQuery.of(context).size.height * 0.15,
                             width: MediaQuery.of(context).size.height * 0.25,
-                            child:postcubit.userposts[index].postimage.length > 0 ? Image.network('${ postcubit.userposts[index].postimage}',fit: BoxFit.cover,):
+                            child:postcubit.userposts[index].postimage.length > 0  ? Image(image:postcubit.userposts[index].postimage.contains('http')  ?  NetworkImage(postcubit.userposts[index].postimage):Image.memory(base64Decode(postcubit.userposts[index].postimage)).image) :
                             Center(
                               child: Container(
                                 padding: EdgeInsets.all(10.0.r),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:chatapp/cubit/socialcubit/socialstates.dart';
@@ -203,21 +204,21 @@ class Socialappcubit extends Cubit<socialappstate> {
   }
 //...........................................................................................
 //create post
-  File? postimagehere;
+  String? postimagehere;
   ImagePicker postpicker = ImagePicker();
   Future getpostImage(BuildContext context) async {
     emit(SocialappGETPostIMAGELOADINGstate());
     XFile? pickedFile = await postpicker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      postimagehere = File(pickedFile.path);
-      emit(SocialappGETPostIIMAGESuccessstate());
-    } else {
-      emit(SocialappGETPostIIMAGEERRORstate('no image selected'));
+
+    final bytes = File(pickedFile!.path).readAsBytesSync();
+    String base64Image =  base64Encode(bytes);
+    postimagehere = base64Image;
+    //postimagehere = File(pickedFile.path);
+    emit(SocialappGETPostIIMAGESuccessstate());
     }
-  }
   //...........................................................................................
 //upload post image
-  void uploadPostImage({
+/*  void uploadPostImage({
     required String datetime,
     required String text,
   }) {
@@ -239,7 +240,8 @@ class Socialappcubit extends Cubit<socialappstate> {
     }).catchError((e) {
       emit(SocialappCreatePostImageERRORstate(e.toString()));
     });
-  }
+
+  }*/
   //...........................................................................................
 //create post
   void createpost({
@@ -437,11 +439,17 @@ return e;
 
     try{
       FirebaseFirestore.instance.collection('posts').doc(postid).update({
-postimage:postimage,text:text
+"postimage": "${postimage}","text": "${text}"
+          }).then((value) => {
+
+      emit(SocialappEditUserPostSuccessstate())
+      }).catchError((e){
+        emit(SocialappEditUserPostSERRORstate(e.toString()));
+
       });
-      emit(SocialappDeletePostSuccessstate());
+
     }catch(e){
-      emit(SocialappDeletePostERRORstate(e.toString()));
+      emit(SocialappEditUserPostSERRORstate(e.toString()));
     }
 
   }
